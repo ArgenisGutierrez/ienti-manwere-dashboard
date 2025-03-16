@@ -1,5 +1,5 @@
 <?php
-require_once 'app/config.php';
+require_once '../app/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es-MX">
@@ -35,10 +35,10 @@ require_once 'app/config.php';
 <body class="login-container">
   <!-- Login box start -->
   <div class="container">
-    <form action="" id="login-form" autocomplete="off" method="post">
+    <form action="controller_login.php" id="login-form" autocomplete="off" method="post">
       <div class="login-box rounded-2 p-5">
         <div class="login-form">
-          <a href="index.html" class="login-logo mb-3">
+          <a href="https://www.ienti.com.mx" class="login-logo mb-3">
             <img src="<?php echo APP_URL ?>/public/images/logo.webp" alt="Logo ienti & manwere" />
           </a>
           <h5 class="fw-light mb-5">Inicia Sesión para acceder</h5>
