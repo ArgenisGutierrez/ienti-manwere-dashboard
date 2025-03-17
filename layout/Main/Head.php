@@ -35,6 +35,7 @@
 
   <!-- Scrollbar CSS -->
   <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/overlay-scroll/OverlayScrollbars.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
