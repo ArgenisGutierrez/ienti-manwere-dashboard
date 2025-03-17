@@ -1,6 +1,6 @@
 <?php
-require_once '../app/config.php';
-require_once 'Main/Head.php';
+require_once '../../app/config.php';
+require_once '../Main/Head.php';
 ?>
 <!-- Main header starts -->
 <div class="main-header d-flex align-items-center justify-content-between position-relative">
@@ -9,7 +9,7 @@ require_once 'Main/Head.php';
       <i class="bi bi-layout-sidebar"></i>
     </div>
     <div class="page-title d-none d-md-block">
-      <h5>Home</h5>
+      <h5>Gestion de Recursos</h5>
     </div>
   </div>
   <!-- Live updates start -->
@@ -45,7 +45,7 @@ require_once 'Main/Head.php';
     <div class="col-xl-12">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Contenido de Inicio de admin</div>
+          <div class="card-title">Recursos</div>
         </div>
         <div class="card-body"></div>
       </div>
@@ -56,6 +56,6 @@ require_once 'Main/Head.php';
 </div>
 <!-- Content wrapper end -->
 <?php
-require_once 'Main/Footer.php';
-require_once '../layout/mensajes.php';
+require_once '../Main/Footer.php';
+require_once '../../layout/mensajes.php';
 ?>
