@@ -127,7 +127,7 @@ if (isset($_SESSION['usuario'])) {
             <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
               <span class="user-name d-none d-md-block"><?php echo $usuario_sesion; ?></span>
               <span class="avatar">
-                <img src="<?php echo APP_URL ?>/public/images/user7.png" alt="User Avatar" />
+                <img src="<?php echo APP_URL; ?>/public/images/user7.png" alt="User Avatar" />
                 <span class="status online"></span>
               </span>
             </a>
@@ -135,7 +135,7 @@ if (isset($_SESSION['usuario'])) {
               <div class="header-profile-actions">
                 <a href="profile.html">Profile</a>
                 <a href="account-settings.html">Settings</a>
-                <a href="<?php echo APP_URL ?>login/logout.php">Cerrar Session</a>
+                <a href="<?php echo APP_URL; ?>/login/logout.php">Cerrar Session</a>
               </div>
             </div>
           </div>
@@ -165,9 +165,15 @@ if (isset($_SESSION['usuario'])) {
                 </a>
               </li>
               <li>
-                <a href="<?php echo APP_URL; ?>admin/recursos.php">
-                  <i class="bi bi-box"></i>
+                <a href="<?php echo APP_URL; ?>admin/Recursos/index.php">
+                  <i class="bi bi-boxes"></i>
                   <span class="menu-text">Recursos</span>
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo APP_URL; ?>admin/Roles/index.php">
+                  <i class="bi bi-file-earmark-lock2-fill"></i>
+                  <span class="menu-text">Roles</span>
                 </a>
               </li>
             </ul>
@@ -180,39 +186,3 @@ if (isset($_SESSION['usuario'])) {
 
       <!-- Content wrapper scroll start -->
       <div class="content-wrapper-scroll">
-
-        <!-- Main header starts -->
-        <div class="main-header d-flex align-items-center justify-content-between position-relative">
-          <div class="d-flex align-items-center justify-content-center">
-            <div class="page-icon">
-              <i class="bi bi-layout-sidebar"></i>
-            </div>
-            <div class="page-title d-none d-md-block">
-              <h5>Default Layout</h5>
-            </div>
-          </div>
-          <!-- Live updates start -->
-          <ul class="updates d-flex align-items-end flex-column overflow-hidden" id="updates">
-            <li>
-              <a href="javascript:void(0)">
-                <i class="bi bi-envelope-paper text-red font-1x me-2"></i>
-                <span>12 emails from David Michaiah.</span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <i class="bi bi-bar-chart text-blue font-1x me-2"></i>
-                <span>15 new features updated successfully.</span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <i class="bi bi-folder-check text-yellow font-1x me-2"></i>
-                <span>The media folder is created successfully.</span>
-              </a>
-            </li>
-          </ul>
-          <!-- Live updates end -->
-
-        </div>
-        <!-- Main header ends -->
