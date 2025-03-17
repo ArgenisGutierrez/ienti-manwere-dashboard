@@ -15,7 +15,13 @@ foreach ($datos as $dato) {
 }
 
 if (($contador > 0) && ($password_tabla == $password)) {
-    header("Location:" . APP_URL . "index.php");
+    session_start();
+    $_SESSION['mensaje'] = "Bienvenido " . $usuario;
+    $_SESSION['icono'] = "success";
+    $_SESSION['usuario'] = $usuario;
+    header("Location:" . APP_URL . "/admin");
 } else {
+    session_start();
+    $_SESSION['mensaje'] = "Los datos introducidos son incorrectos";
     header("Location:" . APP_URL . "/login");
 }

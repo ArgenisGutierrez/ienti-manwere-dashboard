@@ -30,6 +30,8 @@ require_once '../app/config.php';
 
   <!-- Login css -->
   <link rel="stylesheet" href="<?php echo APP_URL ?>/public/css/login.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="login-container">
@@ -62,6 +64,23 @@ require_once '../app/config.php';
         </div>
       </div>
     </form>
+    <?php
+    session_start();
+    if (isset($_SESSION['mensaje'])) {
+        $mensaje = $_SESSION['mensaje'];
+        ?>
+      <script>
+        Swal.fire({
+          icon: "error",
+          title: '<?php echo $mensaje ?>',
+          showConfirmButton: false,
+          timer: 2500
+        });
+      </script>
+        <?php
+    }
+    session_destroy();
+    ?>
   </div>
   <!-- Login box end -->
 </body>
