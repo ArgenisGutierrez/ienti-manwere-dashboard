@@ -16,9 +16,11 @@ INSERT INTO usuarios (
   'ientiadmin','Administrador','admin@ienti.com.mx','ientiadmin95*','2025-03-16 15:21:55','1'
 );
 
+
+
 CREATE TABLE roles (
   id_rol INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nombre_rol VARCHAR (255) NOT NULL,
+  nombre_rol VARCHAR (255) NOT NULL UNIQUE KEY,
 
   fyh_creacion DATETIME NULL,
   fyh_modificacion DATETIME NULL,

@@ -59,23 +59,15 @@ require_once '../../app/controllers/roles/listado_roles.php';
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">
-                        Nuevo Recurso
+                        Nuevo Role
                       </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form id="recurso_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
+                      <form action="<?php echo APP_URL;?>app/controllers/roles/crear_role.php" id="role_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
                         <div class="col-md-12">
-                          <label for="recurso_descripcion" class="form-label">Descripción</label>
-                          <input type="text" class="form-control" id="recurso_descripcion" name="recurso_descripcion" required />
-                        </div>
-                        <div class="col-md-12">
-                          <label for="recurso_tipo" class="form-label">Tipo</label>
-                          <select class="form-select" id="recurso_tipo" name="recurso_tipo" required>
-                            <option selected disabled value="">...</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Video</option>
-                          </select>
+                          <label for="nombre_rol" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="nombre_rol" name="nombre_rol" required />
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-primary" value="add" name="action">
@@ -92,7 +84,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table id="basicExample" class="table table-hover display">
+            <table id="hideSearchExample" class="table custom-table">
               <thead>
                 <tr>
                   <th>Nombre</th>

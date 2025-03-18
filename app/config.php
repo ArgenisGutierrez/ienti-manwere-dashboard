@@ -10,9 +10,9 @@ date_default_timezone_set(timezoneId: 'America/Mexico_City');
 
 $servidor = "mysql:host=" . SERVIDOR . ";dbname=" . DB;
 try {
-    $pdo = new PDO($servidor, USUARIO, PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+  $pdo = new PDO($servidor, USUARIO, PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 } catch (PDOException $e) {
-    print_r($e);
+  print_r($e);
 }
 
 
@@ -21,3 +21,4 @@ $fecha_actual = date(format: 'Y-m-d');
 $dia_actual = date(format: 'd');
 $mes_actual = date(format: 'm');
 $ano_actual = date(format: 'Y');
+$estado = '1';
