@@ -1,15 +1,15 @@
 <?php
 session_start();
 if (isset($_SESSION['usuario'])) {
-  $usuario_sesion = $_SESSION['usuario'];
-  $query_sesion = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = '.$usuario_sesion.' AND estado=1");
-  $query_sesion->execute();
-  $datos = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
-  foreach ($datos as $dato) {
-    $nombre_sesion_usuario = $dato['usuario'];
-  }
+    $usuario_sesion = $_SESSION['usuario'];
+    $query_sesion = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = '.$usuario_sesion.' AND estado=1");
+    $query_sesion->execute();
+    $datos = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($datos as $dato) {
+        $nombre_sesion_usuario = $dato['usuario'];
+    }
 } else {
-  header("Location:" . APP_URL . "/login");
+    header("Location:" . APP_URL . "/login");
 }
 ?>
 <!DOCTYPE html>
@@ -29,30 +29,30 @@ if (isset($_SESSION['usuario'])) {
   <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
   <meta property="og:type" content="Website">
   <meta property="og:site_name" content="Bootstrap Gallery">
-  <link rel="shortcut icon" href="<?php echo APP_URL ?>/public/images/icon.ico" />
+  <link rel="shortcut icon" href="<?php echo APP_URL; ?>public/images/icon.ico" />
 
   <!-- *************
             ************ Common Css Files *************
         ************ -->
   <!-- Bootstrap css -->
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL; ?>public/css/bootstrap.min.css" />
 
   <!-- Bootstrap font icons css -->
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/fonts/bootstrap/bootstrap-icons.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL; ?>public/fonts/bootstrap/bootstrap-icons.css" />
 
   <!-- Main css -->
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/css/main.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL; ?>public/css/main.css" />
 
   <!-- *************
             ************ Vendor Css Files *************
         ************ -->
   <!-- Data Tables -->
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.bs5.css" />
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.bs5-custom.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL; ?>public/vendor/datatables/dataTables.bs5.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL; ?>public/vendor/datatables/dataTables.bs5-custom.css" />
 
 
   <!-- Scrollbar CSS -->
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/overlay-scroll/OverlayScrollbars.min.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL; ?>public/vendor/overlay-scroll/OverlayScrollbars.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -67,8 +67,8 @@ if (isset($_SESSION['usuario'])) {
       <!-- Sidebar brand starts -->
       <div class="brand">
         <a href="index.html" class="logo">
-          <img src="<?php echo APP_URL ?>/public/images/logo.webp" class="d-none d-md-block me-4" alt="ienti & manwere" />
-          <img src="<?php echo APP_URL ?>/public/images/logo.webp" class="d-block d-md-none me-4" alt="ienti & manwere" />
+          <img src="<?php echo APP_URL; ?>public/images/logo.webp" class="d-none d-md-block me-4" alt="ienti & manwere" />
+          <img src="<?php echo APP_URL; ?>public/images/logo.webp" class="d-block d-md-none me-4" alt="ienti & manwere" />
         </a>
       </div>
       <!-- Sidebar brand ends -->
@@ -89,7 +89,7 @@ if (isset($_SESSION['usuario'])) {
             <div class="dropdown-menu dropdown-menu-end shadow-lg">
               <div class="dropdown-item">
                 <div class="d-flex py-2 border-bottom">
-                  <img src="<?php echo APP_URL ?>/public/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
+                  <img src="<?php echo APP_URL;?>public/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
                   <div class="m-0">
                     <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
                     <p class="mb-1">Membership has been ended.</p>
@@ -99,7 +99,7 @@ if (isset($_SESSION['usuario'])) {
               </div>
               <div class="dropdown-item">
                 <div class="d-flex py-2 border-bottom">
-                  <img src="<?php echo APP_URL ?>/public/images/user2.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
+                  <img src="<?php echo APP_URL; ?>public/images/user2.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
                   <div class="m-0">
                     <h6 class="mb-1 fw-semibold">Benjamin Michiels</h6>
                     <p class="mb-1">Congratulate, James for new job.</p>
@@ -109,7 +109,7 @@ if (isset($_SESSION['usuario'])) {
               </div>
               <div class="dropdown-item">
                 <div class="d-flex py-2">
-                  <img src="<?php echo APP_URL ?>/public/images/user1.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
+                  <img src="<?php echo APP_URL; ?>public/images/user1.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
                   <div class="m-0">
                     <h6 class="mb-1 fw-semibold">Jehovah Roy</h6>
                     <p class="mb-1">Lewis added new schedule release.</p>
@@ -131,7 +131,7 @@ if (isset($_SESSION['usuario'])) {
             <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
               <span class="user-name d-none d-md-block"><?php echo $usuario_sesion; ?></span>
               <span class="avatar">
-                <img src="<?php echo APP_URL; ?>/public/images/user7.png" alt="User Avatar" />
+                <img src="<?php echo APP_URL; ?>public/images/user7.png" alt="User Avatar" />
                 <span class="status online"></span>
               </span>
             </a>
@@ -139,7 +139,7 @@ if (isset($_SESSION['usuario'])) {
               <div class="header-profile-actions">
                 <a href="profile.html">Profile</a>
                 <a href="account-settings.html">Settings</a>
-                <a href="<?php echo APP_URL; ?>/login/logout.php">Cerrar Session</a>
+                <a href="<?php echo APP_URL; ?>login/logout.php">Cerrar Session</a>
               </div>
             </div>
           </div>

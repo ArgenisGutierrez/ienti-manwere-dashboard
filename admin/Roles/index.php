@@ -64,7 +64,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form action="<?php echo APP_URL;?>app/controllers/roles/crear_role.php" id="role_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
+                      <form action="<?php echo APP_URL; ?>app/controllers/roles/crear_role.php" id="role_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
                         <div class="col-md-12">
                           <label for="nombre_rol" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="nombre_rol" name="nombre_rol" required />
@@ -84,7 +84,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table id="hideSearchExample" class="table custom-table">
+            <table id="role_table" class="table table-hover custom-table">
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -128,8 +128,6 @@ require_once '../../app/controllers/roles/listado_roles.php';
     </div>
   </div>
   <!-- Row end -->
-
-  <script type="text/javascript" src="<?php echo APP_URL; ?>/admin/scripts.js"></script>
 
 </div>
 <!-- Content wrapper end -->

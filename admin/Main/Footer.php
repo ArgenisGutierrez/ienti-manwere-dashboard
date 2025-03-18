@@ -17,37 +17,37 @@
             ************ Required JavaScript Files *************
         ************* -->
 <!-- Required jQuery first, then Bootstrap Bundle JS -->
-<script src="<?php echo APP_URL ?>/public/js/jquery.min.js"></script>
-<script src="<?php echo APP_URL ?>/public/js/bootstrap.bundle.min.js"></script>
-<script src="<?php echo APP_URL ?>/public/js/modernizr.js"></script>
-<script src="<?php echo APP_URL ?>/public/js/moment.js"></script>
+<script src="<?php echo APP_URL; ?>public/js/jquery.min.js"></script>
+<script src="<?php echo APP_URL; ?>public/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo APP_URL; ?>public/js/modernizr.js"></script>
+<script src="<?php echo APP_URL; ?>public/js/moment.js"></script>
 
 <!-- *************
             ************ Vendor Js Files *************
         ************* -->
 
 <!-- Overlay Scroll JS -->
-<script src="<?php echo APP_URL ?>/public/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
-<script src="<?php echo APP_URL ?>/public/vendor/overlay-scroll/custom-scrollbar.js"></script>
+<script src="<?php echo APP_URL; ?>public/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+<script src="<?php echo APP_URL; ?>public/vendor/overlay-scroll/custom-scrollbar.js"></script>
 
 <!-- News ticker -->
-<script src="<?php echo APP_URL ?>/public/vendor/newsticker/newsTicker.min.js"></script>
-<script src="<?php echo APP_URL ?>/public/vendor/newsticker/custom-newsTicker.js"></script>
+<script src="<?php echo APP_URL ?>public/vendor/newsticker/newsTicker.min.js"></script>
+<script src="<?php echo APP_URL; ?>public/vendor/newsticker/custom-newsTicker.js"></script>
 
 <!-- Data Tables -->
-<script src="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.min.js"></script>
-<script src="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.bootstrap.min.js"></script>
-<script src="<?php echo APP_URL ?>/public/vendor/datatables/custom/custom-datatables.js"></script>
+<script src="<?php echo APP_URL; ?>public/vendor/datatables/dataTables.min.js"></script>
+<script src="<?php echo APP_URL; ?>public/vendor/datatables/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo APP_URL; ?>public/vendor/datatables/custom/custom-datatables.js"></script>
 
 <!-- validations -->
-<script src="<?php echo APP_URL ?>/public/js/validations.js"></script>
+<script src="<?php echo APP_URL; ?>public/js/validations.js"></script>
 
+
+<script src="<?php echo APP_URL; ?>admin/Roles/roles.js"></script>
 
 <!-- Main Js Required -->
-<script src="<?php echo APP_URL ?>/public/js/main.js"></script>
+<script src="<?php echo APP_URL; ?>public/js/main.js"></script>
 
-
-<script type="text/javascript" src="<?php echo APP_URL; ?>/admin/scripts.js"></script>
 </body>
 
 </html>
