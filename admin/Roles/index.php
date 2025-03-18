@@ -138,11 +138,50 @@ require_once '../../app/controllers/roles/listado_roles.php';
                       </div>
                     </td>
                     <td>
-                      <!-- Botón eliminar -->
-                      <button type="button" class="btn btn-danger eliminar-btn"
-                        data-id="<?php echo $rol['id_rol'] ?>">
-                        <i class="bi bi-trash-fill"></i>
-                      </button>
+                      <!-- Formulario para eliminar -->
+                      <form id="formEliminar<?php echo $rol['id_rol'] ?>" method="POST" action="<?php echo APP_URL ?>app/controllers/roles/eliminar_role.php">
+                        <input type="hidden" name="id_rol" value="<?php echo $rol['id_rol'] ?>">
+                        <button type="button"
+                          class="btn btn-danger"
+                          onclick="confirmarEliminacion(<?php echo $rol['id_rol'] ?>)">
+                          <i class="bi bi-trash-fill"></i>
+                        </button>
+                      </form>
+                      <script>
+                        function confirmarEliminacion(idRol) {
+                          Swal.fire({
+                            title: '¿Eliminar rol?',
+                            text: "¡Esta acción no se puede deshacer!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#cc2026',
+                            cancelButtonColor: '#2C395E',
+                            confirmButtonText: 'Sí, eliminar',
+                            cancelButtonText: 'Cancelar'
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              // Enviar directamente vía AJAX
+                              fetch('<?php echo APP_URL ?>app/controllers/roles/eliminar_role.php', {
+                                  method: 'POST',
+                                  headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                  },
+                                  body: 'id_rol=' + idRol
+                                })
+                                .then(response => {
+                                  if (response.ok) {
+                                    location.reload(); // Recargar la página
+                                  } else {
+                                    Swal.fire('Error', 'El servidor respondió con un error', 'error');
+                                  }
+                                })
+                                .catch(error => {
+                                  Swal.fire('Error', 'No se pudo conectar al servidor', 'error');
+                                });
+                            }
+                          });
+                        }
+                      </script>
                     </td>
                   </tr>
                 <?php } ?>
