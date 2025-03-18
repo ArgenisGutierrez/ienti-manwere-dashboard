@@ -49,11 +49,11 @@ require_once '../../app/controllers/roles/listado_roles.php';
           <div class="card-title">Roles:</div>
           <div class="card-header">
             <div class="card-title">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                + Recurso
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarRole">
+                + Role
               </button>
               <!--Modal-->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              <div class="modal fade" id="agregarRole" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -88,38 +88,64 @@ require_once '../../app/controllers/roles/listado_roles.php';
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Ver</th>
                   <th>Editar</th>
                   <th>Eliminar</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                foreach ($roles as $rol) {
-                  $rol_id = $rol['id_rol'];
-                  $rol_nombre = $rol['nombre_rol'];
-                ?>
+                <?php foreach ($roles as $rol) { ?>
                   <tr>
-                    <td><?php echo $rol_nombre ?></th>
+                    <td><?php echo $rol['nombre_rol'] ?></td>
                     <td>
-                      <button type="button" class="btn btn-info" value="<?php echo $rol_id ?>">
-                        <i class="bi bi-eye-fill"></i>
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-warning" value="<?php echo $rol_id ?>">
+                      <!-- Botón que abre el modal específico para cada registro -->
+                      <button type="button" class="btn btn-primary editar-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editarRole<?php echo $rol['id_rol'] ?>">
                         <i class="bi bi-pencil-fill"></i>
                       </button>
+                      <!-- Modal único para cada registro -->
+                      <div class="modal fade" id="editarRole<?php echo $rol['id_rol'] ?>" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">
+                                Editar <?php echo $rol['nombre_rol'] ?>
+                              </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="<?php echo APP_URL; ?>app/controllers/roles/actualizar_role.php"
+                                method="post" class="editar-form">
+                                <!-- Campo oculto para el ID -->
+                                <input type="hidden" id="id_rol" name="id_rol" value="<?php echo $rol['id_rol']; ?>">
+
+                                <div class="col-md-12">
+                                  <label for="nombre_rol" class="form-label">Nombre</label>
+                                  <input type="text" class="form-control"
+                                    name="nombre_rol"
+                                    value="<?php echo htmlspecialchars($rol['nombre_rol']) ?>"
+                                    required>
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-danger" value="<?php echo $rol_id ?>">
+                      <!-- Botón eliminar -->
+                      <button type="button" class="btn btn-danger eliminar-btn"
+                        data-id="<?php echo $rol['id_rol'] ?>">
                         <i class="bi bi-trash-fill"></i>
                       </button>
                     </td>
                   </tr>
-                <?php
-                }
-                ?>
+                <?php } ?>
               </tbody>
             </table>
           </div>
