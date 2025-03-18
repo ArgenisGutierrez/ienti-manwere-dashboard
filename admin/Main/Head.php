@@ -1,15 +1,15 @@
 <?php
 session_start();
 if (isset($_SESSION['usuario'])) {
-    $usuario_sesion = $_SESSION['usuario'];
-    $query_sesion = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = '.$usuario_sesion.' AND estado=1");
-    $query_sesion->execute();
-    $datos = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($datos as $dato) {
-        $nombre_sesion_usuario = $dato['usuario'];
-    }
+  $usuario_sesion = $_SESSION['usuario'];
+  $query_sesion = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = '.$usuario_sesion.' AND estado=1");
+  $query_sesion->execute();
+  $datos = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($datos as $dato) {
+    $nombre_sesion_usuario = $dato['usuario'];
+  }
 } else {
-    header("Location:" . APP_URL . "/login");
+  header("Location:" . APP_URL . "/login");
 }
 ?>
 <!DOCTYPE html>
@@ -41,11 +41,15 @@ if (isset($_SESSION['usuario'])) {
   <link rel="stylesheet" href="<?php echo APP_URL ?>/public/fonts/bootstrap/bootstrap-icons.css" />
 
   <!-- Main css -->
-  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/css/main.min.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/css/main.css" />
 
   <!-- *************
             ************ Vendor Css Files *************
         ************ -->
+  <!-- Data Tables -->
+  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.bs5.css" />
+  <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.bs5-custom.css" />
+
 
   <!-- Scrollbar CSS -->
   <link rel="stylesheet" href="<?php echo APP_URL ?>/public/vendor/overlay-scroll/OverlayScrollbars.min.css" />

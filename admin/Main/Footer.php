@@ -34,8 +34,20 @@
 <script src="<?php echo APP_URL ?>/public/vendor/newsticker/newsTicker.min.js"></script>
 <script src="<?php echo APP_URL ?>/public/vendor/newsticker/custom-newsTicker.js"></script>
 
+<!-- Data Tables -->
+<script src="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.min.js"></script>
+<script src="<?php echo APP_URL ?>/public/vendor/datatables/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo APP_URL ?>/public/vendor/datatables/custom/custom-datatables.js"></script>
+
+<!-- validations -->
+<script src="<?php echo APP_URL ?>/public/js/validations.js"></script>
+
+
 <!-- Main Js Required -->
 <script src="<?php echo APP_URL ?>/public/js/main.js"></script>
+
+
+<script type="text/javascript" src="<?php echo APP_URL; ?>/admin/scripts.js"></script>
 </body>
 
 </html>
