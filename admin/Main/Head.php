@@ -169,6 +169,12 @@ if (isset($_SESSION['nombre_usuario'])) {
                 </a>
               </li>
               <li>
+                <a href="<?php echo APP_URL; ?>admin/Usuarios/index.php">
+                  <i class="bi bi-boxes"></i>
+                  <span class="menu-text">Usuarios</span>
+                </a>
+              </li>
+              <li>
                 <a href="<?php echo APP_URL; ?>admin/Recursos/index.php">
                   <i class="bi bi-boxes"></i>
                   <span class="menu-text">Recursos</span>

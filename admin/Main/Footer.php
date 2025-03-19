@@ -44,6 +44,7 @@
 
 
 <script src="<?php echo APP_URL; ?>admin/Roles/roles.js"></script>
+<script src="<?php echo APP_URL; ?>admin/Usuarios/usuarios.js"></script>
 
 <!-- Main Js Required -->
 <script src="<?php echo APP_URL; ?>public/js/main.js"></script>
