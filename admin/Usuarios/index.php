@@ -147,8 +147,8 @@ require_once '../../app/controllers/roles/listado_roles.php';
                     <td><?php if ($usuario['estado'] == 1) {;
                           echo "Activo";
                         } else {
-                            echo "Desactivado";
-} ?></td>
+                          echo "Desactivado";
+                        } ?></td>
                     <td>
                       <!-- Botón que abre el modal específico para cada registro -->
                       <button type="button" class="btn btn-primary editar-btn"
@@ -186,9 +186,9 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                     <option selected disabled value="">Asignar...</option>
                                     <?php
                                     foreach ($roles as $role) {
-                                        ?>
+                                    ?>
                                       <option value="<?php echo $role['id_rol'] ?>"><?php echo $role['nombre_rol'] ?></option>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                   </select>
@@ -280,3 +280,5 @@ require_once '../../app/controllers/roles/listado_roles.php';
 require_once '../Main/Footer.php';
 require_once '../../layout/mensajes.php';
 ?>
+
+<script role="text/javascript" src="usuarios.js"></script>

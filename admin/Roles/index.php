@@ -215,3 +215,5 @@ require_once '../../app/controllers/roles/listado_roles.php';
 require_once '../Main/Footer.php';
 require_once '../../layout/mensajes.php';
 ?>
+
+<script role="text/javascript" src="roles.js"></script>

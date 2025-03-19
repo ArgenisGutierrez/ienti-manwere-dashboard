@@ -40,3 +40,17 @@ INSERT INTO usuarios (
 ) VALUES ( 
   'ientiadmin','1','admin@ienti.com.mx','$2y$10$BXuu1n9/MFOyETHgaS06C.V7IUKxglyGXyspBKpX1xYpx7dSS0QsW','2025-03-16 15:21:55','1'
 );
+
+-- Tabla Recursos
+CREATE TABLE recursos (
+  id_recurso INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  descripcion_recurso VARCHAR (255) NOT NULL,
+  clasificacion_recurso VARCHAR (255) NOT NULL,
+  tipo_recurso VARCHAR (255) NOT NULL,
+  contenido_recurso VARCHAR (255) NOT NULL,
+
+  fyh_creacion DATETIME NULL,
+  fyh_modificacion DATETIME NULL,
+  estado VARCHAR (11)
+)ENGINE=InnoDB;
+);

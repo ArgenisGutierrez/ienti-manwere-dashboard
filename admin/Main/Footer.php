@@ -42,16 +42,6 @@
 <!-- validations -->
 <script src="<?php echo APP_URL; ?>public/js/validations.js"></script>
 
-
-<script src="<?php echo APP_URL; ?>admin/Roles/roles.js"></script>
-<script src="<?php echo APP_URL; ?>admin/Usuarios/usuarios.js"></script>
-
-<!-- Apex Charts -->
-<script src="<?php echo APP_URL; ?>public/vendor/apex/apexcharts.min.js"></script>
-<script src="<?php echo APP_URL; ?>public/vendor/apex/custom/widgets/sparkline.js"></script>
-<script src="<?php echo APP_URL; ?>public/vendor/apex/custom/widgets/sparkline2.js"></script>
-
-
 <!-- Main Js Required -->
 <script src="<?php echo APP_URL; ?>public/js/main.js"></script>
 
