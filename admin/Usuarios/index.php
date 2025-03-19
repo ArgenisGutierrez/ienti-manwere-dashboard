@@ -4,6 +4,21 @@ require_once '../Main/Head.php';
 require_once '../../app/controllers/usuarios/listado_usuarios.php';
 require_once '../../app/controllers/roles/listado_roles.php';
 ?>
+
+<style>
+  .is-invalid {
+    border-color: #dc3545 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  .is-invalid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, .25);
+  }
+</style>
+
 <!-- Main header starts -->
 <div class="main-header d-flex align-items-center justify-content-between position-relative">
   <div class="d-flex align-items-center justify-content-center">
@@ -65,7 +80,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form action="<?php echo APP_URL; ?>app/controllers/usuarios/crear_usuario.php" id="role_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
+                      <form action="<?php echo APP_URL; ?>app/controllers/usuarios/crear_usuario.php" id="usuario_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
                         <div class="col-md-12">
                           <label for="nombre_usuario" class="form-label">Nombre</label>
                           <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required />
@@ -75,20 +90,24 @@ require_once '../../app/controllers/roles/listado_roles.php';
                           <input type="password" class="form-control" id="password_usuario" name="password_usuario" required />
                         </div>
                         <div class="col-md-12">
+                          <label for="password_usuario2" class="form-label">Repetir Password</label>
+                          <input type="password" class="form-control" id="password_usuario2" name="password_usuario2" required />
+                          <div class="invalid-feedback" id="password-feedback" style="display: none;">
+                            Las contraseñas no coinciden
+                          </div>
+                        </div>
+                        <div class="col-md-12">
                           <label for="email_usuario" class="form-label">Email</label>
                           <input type="email" class="form-control" id="email_usuario" name="email_usuario" required />
                         </div>
                         <div class="col-md-12">
                           <label for="validationCustom04" class="form-label">Role</label>
-                          <select class="form-select" id="validationCustom04" required>
+                          <!-- Agrega el atributo name -->
+                          <select class="form-select" id="validationCustom04" name="id_rol" required>
                             <option selected disabled value="">Asignar...</option>
-                            <?php
-                            foreach ($roles as $role) {
-                            ?>
+                            <?php foreach ($roles as $role) { ?>
                               <option value="<?php echo $role['id_rol'] ?>"><?php echo $role['nombre_rol'] ?></option>
-                            <?php
-                            }
-                            ?>
+                            <?php } ?>
                           </select>
                         </div>
                         <div class="modal-footer">
@@ -112,6 +131,8 @@ require_once '../../app/controllers/roles/listado_roles.php';
                   <th>Nombre</th>
                   <th>Role</th>
                   <th>Email</th>
+                  <th>Feacha de Creación</th>
+                  <th>Estado</th>
                   <th>Editar</th>
                   <th>Eliminar</th>
                 </tr>
@@ -122,6 +143,12 @@ require_once '../../app/controllers/roles/listado_roles.php';
                     <td><?php echo $usuario['nombre_usuario'] ?></td>
                     <td><?php echo $usuario['nombre_rol'] ?></td>
                     <td><?php echo $usuario['email_usuario'] ?></td>
+                    <td><?php echo $usuario['fyh_creacion'] ?></td>
+                    <td><?php if ($usuario['estado'] == 1) {;
+                          echo "Activo";
+                        } else {
+                            echo "Desactivado";
+} ?></td>
                     <td>
                       <!-- Botón que abre el modal específico para cada registro -->
                       <button type="button" class="btn btn-primary editar-btn"
@@ -141,19 +168,43 @@ require_once '../../app/controllers/roles/listado_roles.php';
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form action="<?php echo APP_URL; ?>app/contusuariolers/usuarioes/actualizar_usuarioe.php"
-                                method="post" class="editar-form">
+                              <form action="<?php echo APP_URL; ?>app/controllers/usuarios/actualizar_usuario.php" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
                                 <!-- Campo oculto para el ID -->
                                 <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">
 
                                 <div class="col-md-12">
                                   <label for="nombre_usuario" class="form-label">Nombre</label>
-                                  <input type="text" class="form-contusuario"
-                                    name="nombre_usuario"
-                                    value="<?php echo htmlspecialchars($usuario['nombre_usuario']) ?>"
-                                    required>
+                                  <input value="<?php echo $usuario['nombre_usuario']; ?>" type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required />
                                 </div>
-
+                                <div class="col-md-12" hidden>
+                                  <label for="password_usuario" class="form-label">Password</label>
+                                  <input value="<?php echo $usuario['password_usuario']; ?>" type="password" class="form-control" id="password_usuario" name="password_usuario" required />
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="email_usuario" class="form-label">Email</label>
+                                  <input value="<?php echo $usuario['email_usuario']; ?>" type="email" class="form-control" id="email_usuario" name="email_usuario" required />
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="validationCustom04" class="form-label">Role</label>
+                                  <select class="form-select" id="validationCustom04" required>
+                                    <option selected disabled value="">Asignar...</option>
+                                    <?php
+                                    foreach ($roles as $role) {
+                                        ?>
+                                      <option value="<?php echo $role['id_rol'] ?>"><?php echo $role['nombre_rol'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="validationCustom04" class="form-label">Estado</label>
+                                  <select class="form-select" id="validationCustom04" required>
+                                    <option selected disabled value="">Asignar...</option>
+                                    <option value="1">Activo</option>
+                                    <option value="0">Desactivado</option>
+                                  </select>
+                                </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-primary">Guardar cambios</button>
                                 </div>
@@ -165,7 +216,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                     </td>
                     <td>
                       <!-- Formulario para eliminar -->
-                      <form id="formEliminar<?php echo $usuario['id_usuario'] ?>" method="POST" action="<?php echo APP_URL ?>app/contusuariolers/usuarioes/eliminar_usuarioe.php">
+                      <form id="formEliminar<?php echo $usuario['id_usuario'] ?>" method="POST" action="<?php echo APP_URL ?>app/contusuariolers/usuarios/eliminar_usuario.php">
                         <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario'] ?>">
                         <button type="button"
                           class="btn btn-danger"
@@ -187,7 +238,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                           }).then((result) => {
                             if (result.isConfirmed) {
                               // Enviar directamente vía AJAX
-                              fetch('<?php echo APP_URL ?>app/contusuariolers/usuarioes/eliminar_usuarioe.php', {
+                              fetch('<?php echo APP_URL ?>app/contusuariolers/usuarios/eliminar_usuario.php', {
                                   method: 'POST',
                                   headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',

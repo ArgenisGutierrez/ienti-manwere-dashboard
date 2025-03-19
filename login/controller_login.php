@@ -14,7 +14,7 @@ foreach ($datos as $dato) {
   $contador++;
 }
 
-if (($contador > 0) && ($password_tabla == $password_usuario)) {
+if (($contador > 0) && (password_verify($password_usuario, $password_tabla))) {
   session_start();
   $_SESSION['mensaje'] = "Bienvenido " . $nombre_usuario;
   $_SESSION['icono'] = "success";

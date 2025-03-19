@@ -115,8 +115,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form action="<?php echo APP_URL; ?>app/controllers/roles/actualizar_role.php"
-                                method="post" class="editar-form">
+                              <form action="<?php echo APP_URL; ?>app/controllers/roles/actualizar_role.php" id="role_form" method="post" autocomplete="off" class="row g-3 needs-validation" novalidate>
                                 <!-- Campo oculto para el ID -->
                                 <input type="hidden" id="id_rol" name="id_rol" value="<?php echo $rol['id_rol']; ?>">
 
