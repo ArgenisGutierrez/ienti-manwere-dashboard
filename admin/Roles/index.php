@@ -159,23 +159,39 @@ require_once '../../app/controllers/roles/listado_roles.php';
                             cancelButtonText: 'Cancelar'
                           }).then((result) => {
                             if (result.isConfirmed) {
-                              // Enviar directamente vía AJAX
                               fetch('<?php echo APP_URL ?>app/controllers/roles/eliminar_role.php', {
                                   method: 'POST',
                                   headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',
                                   },
-                                  body: 'id_rol=' + idRol
+                                  body: 'id_rol=' + idRol,
+                                  credentials: 'same-origin'
                                 })
                                 .then(response => {
-                                  if (response.ok) {
-                                    location.reload(); // Recargar la página
-                                  } else {
-                                    Swal.fire('Error', 'El servidor respondió con un error', 'error');
+                                  if (!response.ok) {
+                                    return response.json().then(err => {
+                                      throw err;
+                                    });
+                                  }
+                                  return response.json();
+                                })
+                                .then(data => {
+                                  if (data.success) {
+                                    Swal.fire({
+                                      icon: 'success',
+                                      title: '¡Eliminado!',
+                                      text: data.message,
+                                      confirmButtonColor: '#cc2026'
+                                    }).then(() => location.reload());
                                   }
                                 })
                                 .catch(error => {
-                                  Swal.fire('Error', 'No se pudo conectar al servidor', 'error');
+                                  Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: error.error || 'Error desconocido',
+                                    confirmButtonColor: '#cc2026'
+                                  });
                                 });
                             }
                           });
