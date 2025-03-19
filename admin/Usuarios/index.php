@@ -176,17 +176,13 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                   <label for="nombre_usuario" class="form-label">Nombre</label>
                                   <input value="<?php echo $usuario['nombre_usuario']; ?>" type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required />
                                 </div>
-                                <div class="col-md-12" hidden>
-                                  <label for="password_usuario" class="form-label">Password</label>
-                                  <input value="<?php echo $usuario['password_usuario']; ?>" type="password" class="form-control" id="password_usuario" name="password_usuario" required />
-                                </div>
                                 <div class="col-md-12">
                                   <label for="email_usuario" class="form-label">Email</label>
                                   <input value="<?php echo $usuario['email_usuario']; ?>" type="email" class="form-control" id="email_usuario" name="email_usuario" required />
                                 </div>
                                 <div class="col-md-12">
                                   <label for="validationCustom04" class="form-label">Role</label>
-                                  <select class="form-select" id="validationCustom04" required>
+                                  <select name="id_rol" class="form-select" id="validationCustom04" required>
                                     <option selected disabled value="">Asignar...</option>
                                     <?php
                                     foreach ($roles as $role) {
@@ -199,7 +195,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                 </div>
                                 <div class="col-md-12">
                                   <label for="validationCustom04" class="form-label">Estado</label>
-                                  <select class="form-select" id="validationCustom04" required>
+                                  <select name="estado" class="form-select" id="validationCustom04" required>
                                     <option selected disabled value="">Asignar...</option>
                                     <option value="1">Activo</option>
                                     <option value="0">Desactivado</option>
@@ -247,7 +243,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                 })
                                 .then(response => {
                                   if (response.ok) {
-                                    location.reload(); // Recargar la página
+                                    Swal.fire('Exito', 'El Usuario fue eliminado', 'success');
                                   } else {
                                     Swal.fire('Error', 'El servidor respondió con un error', 'error');
                                   }
