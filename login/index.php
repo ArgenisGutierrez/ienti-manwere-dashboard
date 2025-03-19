@@ -46,11 +46,11 @@ require_once '../app/config.php';
           <h5 class="fw-light mb-5">Inicia Sesión para acceder</h5>
           <div class="mb-3">
             <label class="form-label">Usuario</label>
-            <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Ingresa tu usuario" />
+            <input id="nombre_usuario" name="nombre_usuario" type="text" class="form-control" placeholder="Ingresa tu usuario" />
           </div>
           <div class="mb-3">
             <label class="form-label">Contraseña</label>
-            <input id="password" name="password" type="password" class="form-control" placeholder="Ingresa tu contraseña" />
+            <input id="password_usuario" name="password_usuario" type="password" class="form-control" placeholder="Ingresa tu contraseña" />
           </div>
           <div class="d-flex align-items-center justify-content-between">
             <a href="forgot-password.html" class="text-blue text-decoration-underline">Olvidaste tu contraseña?</a>

@@ -1,15 +1,15 @@
 <?php
 session_start();
-if (isset($_SESSION['usuario'])) {
-    $usuario_sesion = $_SESSION['usuario'];
-    $query_sesion = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = '.$usuario_sesion.' AND estado=1");
-    $query_sesion->execute();
-    $datos = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($datos as $dato) {
-        $nombre_sesion_usuario = $dato['usuario'];
-    }
+if (isset($_SESSION['nombre_usuario'])) {
+  $usuario_sesion = $_SESSION['nombre_usuario'];
+  $query_sesion = $pdo->prepare("SELECT * FROM usuarios WHERE nombre_usuario = '.$usuario_sesion.' AND estado=1");
+  $query_sesion->execute();
+  $datos = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($datos as $dato) {
+    $nombre_sesion_usuario = $dato['nombre_usuario'];
+  }
 } else {
-    header("Location:" . APP_URL . "/login");
+  header("Location:" . APP_URL . "/login");
 }
 ?>
 <!DOCTYPE html>
@@ -89,7 +89,7 @@ if (isset($_SESSION['usuario'])) {
             <div class="dropdown-menu dropdown-menu-end shadow-lg">
               <div class="dropdown-item">
                 <div class="d-flex py-2 border-bottom">
-                  <img src="<?php echo APP_URL;?>public/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
+                  <img src="<?php echo APP_URL; ?>public/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
                   <div class="m-0">
                     <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
                     <p class="mb-1">Membership has been ended.</p>
