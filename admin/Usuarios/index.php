@@ -147,8 +147,8 @@ require_once '../../app/controllers/roles/listado_roles.php';
                     <td><?php if ($usuario['estado'] == 1) {;
                           echo "Activo";
                         } else {
-                            echo "Desactivado";
-} ?></td>
+                          echo "Desactivado";
+                        } ?></td>
                     <td>
                       <!-- Botón que abre el modal específico para cada registro -->
                       <button type="button" class="btn btn-primary editar-btn"
@@ -190,9 +190,9 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                     <option selected disabled value="">Asignar...</option>
                                     <?php
                                     foreach ($roles as $role) {
-                                        ?>
+                                    ?>
                                       <option value="<?php echo $role['id_rol'] ?>"><?php echo $role['nombre_rol'] ?></option>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                   </select>
@@ -225,7 +225,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                         </button>
                       </form>
                       <script>
-                        function confirmarEliminacion(idRol) {
+                        function confirmarEliminacion(idUsuario) {
                           Swal.fire({
                             title: '¿Eliminar usuario?',
                             text: "¡Esta acción no se puede deshacer!",
@@ -238,12 +238,12 @@ require_once '../../app/controllers/roles/listado_roles.php';
                           }).then((result) => {
                             if (result.isConfirmed) {
                               // Enviar directamente vía AJAX
-                              fetch('<?php echo APP_URL ?>app/contusuariolers/usuarios/eliminar_usuario.php', {
+                              fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_usuario.php', {
                                   method: 'POST',
                                   headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',
                                   },
-                                  body: 'id_usuario=' + idRol
+                                  body: 'id_usuario=' + idUsuario
                                 })
                                 .then(response => {
                                   if (response.ok) {

@@ -38,5 +38,5 @@ CREATE TABLE usuarios (
 INSERT INTO usuarios (
   nombre_usuario,id_rol,email_usuario,password_usuario,fyh_creacion,estado
 ) VALUES ( 
-  'ientiadmin','1','admin@ienti.com.mx','ientiadmin95*','2025-03-16 15:21:55','1'
+  'ientiadmin','1','admin@ienti.com.mx','$2y$10$BXuu1n9/MFOyETHgaS06C.V7IUKxglyGXyspBKpX1xYpx7dSS0QsW','2025-03-16 15:21:55','1'
 );
