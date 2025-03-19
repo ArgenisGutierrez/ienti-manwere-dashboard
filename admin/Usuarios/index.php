@@ -147,8 +147,8 @@ require_once '../../app/controllers/roles/listado_roles.php';
                     <td><?php if ($usuario['estado'] == 1) {;
                           echo "Activo";
                         } else {
-                          echo "Desactivado";
-                        } ?></td>
+                            echo "Desactivado";
+} ?></td>
                     <td>
                       <!-- Botón que abre el modal específico para cada registro -->
                       <button type="button" class="btn btn-primary editar-btn"
@@ -186,9 +186,9 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                     <option selected disabled value="">Asignar...</option>
                                     <?php
                                     foreach ($roles as $role) {
-                                    ?>
+                                        ?>
                                       <option value="<?php echo $role['id_rol'] ?>"><?php echo $role['nombre_rol'] ?></option>
-                                    <?php
+                                        <?php
                                     }
                                     ?>
                                   </select>
@@ -212,14 +212,11 @@ require_once '../../app/controllers/roles/listado_roles.php';
                     </td>
                     <td>
                       <!-- Formulario para eliminar -->
-                      <form id="formEliminar<?php echo $usuario['id_usuario'] ?>" method="POST" action="<?php echo APP_URL ?>app/contusuariolers/usuarios/eliminar_usuario.php">
-                        <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario'] ?>">
-                        <button type="button"
-                          class="btn btn-danger"
-                          onclick="confirmarEliminacion(<?php echo $usuario['id_usuario'] ?>)">
-                          <i class="bi bi-trash-fill"></i>
-                        </button>
-                      </form>
+                      <button type="button"
+                        class="btn btn-danger"
+                        onclick="confirmarEliminacion(<?php echo $usuario['id_usuario'] ?>)">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
                       <script>
                         function confirmarEliminacion(idUsuario) {
                           Swal.fire({
@@ -233,7 +230,6 @@ require_once '../../app/controllers/roles/listado_roles.php';
                             cancelButtonText: 'Cancelar'
                           }).then((result) => {
                             if (result.isConfirmed) {
-                              // Enviar directamente vía AJAX
                               fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_usuario.php', {
                                   method: 'POST',
                                   headers: {
@@ -243,13 +239,24 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                 })
                                 .then(response => {
                                   if (response.ok) {
-                                    Swal.fire('Exito', 'El Usuario fue eliminado', 'success');
+                                    if (response.ok) {
+                                      Swal.fire({
+                                        icon: 'success',
+                                        title: '¡Eliminado!',
+                                        text: 'La página se recargará automáticamente',
+                                        confirmButtonColor: '#cc2026'
+                                      }).then(() => {
+                                        location.reload(); // Recarga completa
+                                      });
+                                    }
                                   } else {
-                                    Swal.fire('Error', 'El servidor respondió con un error', 'error');
+                                    response.json().then(data => {
+                                      Swal.fire('Error', data.error || 'Error en el servidor', 'error');
+                                    });
                                   }
                                 })
                                 .catch(error => {
-                                  Swal.fire('Error', 'No se pudo conectar al servidor', 'error');
+                                  Swal.fire('Error', 'Error de conexión: ' + error.message, 'error');
                                 });
                             }
                           });
