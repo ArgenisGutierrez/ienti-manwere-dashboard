@@ -243,7 +243,7 @@ require_once '../../app/controllers/roles/listado_roles.php';
                                       Swal.fire({
                                         icon: 'success',
                                         title: '¡Eliminado!',
-                                        text: 'La página se recargará automáticamente',
+                                        text: 'El usuario se elimino con exito',
                                         confirmButtonColor: '#cc2026'
                                       }).then(() => {
                                         location.reload(); // Recarga completa

@@ -2,9 +2,14 @@
 require_once '../app/config.php';
 require_once 'Main/Head.php';
 require_once '../app/controllers/usuarios/listado_usuarios.php';
+require_once '../app/controllers/recursos/listado_recursos.php';
 $numero_usuarios = 0;
 foreach ($usuarios as $usuario) {
   $numero_usuarios++;
+}
+$numero_recurso = 0;
+foreach ($recursos as $recurso) {
+  $numero_recursos++;
 }
 ?>
 <!-- Main header starts -->
@@ -72,7 +77,7 @@ foreach ($usuarios as $usuario) {
                 </div>
                 <div class="sale-details">
                   <h5 class="text-light">Recursos</h5>
-                  <h3>368</h3>
+                  <h3><?php echo $numero_recursos ?></h3>
                 </div>
                 <div class="tile-count d-flex align-items-center justify-content-center flex-column fw-bold blue">
                   <i class="bi bi-arrow-up-circle-fill font-1x"></i>

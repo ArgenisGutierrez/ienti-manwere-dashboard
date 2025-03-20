@@ -1,6 +1,7 @@
 <?php
 require_once '../../app/config.php';
 require_once '../Main/Head.php';
+require_once '../../app/controllers/recursos/listado_recursos.php';
 ?>
 <!-- Main header starts -->
 <div class="main-header d-flex align-items-center justify-content-between position-relative">
@@ -127,6 +128,204 @@ require_once '../Main/Head.php';
                           </tr>
                         </thead>
                         <tbody>
+                          <?php foreach ($recursos as $recurso) {
+                            if ($recurso['clasificacion_recurso'] == "Material Normativo") {
+                          ?>
+                              <tr>
+                                <td><?php echo $recurso['descripcion_recurso'] ?></td>
+                                <td><?php
+                                    switch ($recurso['tipo_recurso']) {
+                                      case 'URL':
+                                    ?>
+                                      <button type="button" class="btn btn-info editar-btn">
+                                        <i class="bi bi-link-45deg"></i>
+                                      </button>
+                                    <?php
+                                        break;
+                                      case 'Archivo':
+                                    ?>
+                                      <button type="button" class="btn btn-info editar-btn">
+                                        <i class="bi bi-cloud-arrow-down-fill"></i>
+                                      </button>
+                                    <?php
+                                        break;
+                                      default:
+                                    ?>
+                                      <button type="button" class="btn btn-info editar-btn">
+                                        <i class="bi bi-film"></i>
+                                      </button>
+                                  <?php
+                                        break;
+                                    }
+                                  ?>
+                                </td>
+                                <td>
+                                  <!-- Botón que abre el modal específico para cada registro -->
+                                  <button type="button" class="btn btn-primary editar-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editarRole<?php echo $recurso['id_recurso'] ?>">
+                                    <i class="bi bi-pencil-fill"></i>
+                                  </button>
+                                  <!-- Modal único para cada registro -->
+                                  <div class="modal fade" id="editarRole<?php echo $recurso['id_recurso'] ?>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">
+                                            Editar Recurso - <?php echo $recurso['descripcion_recurso'] ?>
+                                          </h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
+                                            action="<?php echo APP_URL ?>app/controllers/recursos/actualizar_recurso.php"
+                                            enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+
+                                            <!-- Campos ocultos importantes -->
+                                            <input type="hidden" name="id_recurso" value="<?php echo $recurso['id_recurso'] ?>">
+                                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
+                                            <input type="hidden" id="tipo_original_<?php echo $recurso['id_recurso'] ?>"
+                                              value="<?php echo $recurso['tipo_recurso'] ?>">
+                                            <input type="hidden" id="contenido_original_<?php echo $recurso['id_recurso'] ?>"
+                                              value="<?php echo $recurso['contenido_recurso'] ?>">
+
+                                            <!-- Resto de campos del formulario... -->
+                                            <div class="col-md-12">
+                                              <label for="editar_descripcion" class="form-label">Descripción</label>
+                                              <input type="text" class="form-control" id="editar_descripcion"
+                                                name="descripcion" value="<?php echo htmlspecialchars($recurso['descripcion_recurso']) ?>" required>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                              <label for="editar_clasificacion" class="form-label">Clasificación</label>
+                                              <select class="form-select" id="editar_clasificacion" name="clasificacion" required>
+                                                <?php
+                                                $clasificaciones = [
+                                                  'Material Normativo',
+                                                  'Material Relativo a Capacitación',
+                                                  'Material Complementario'
+                                                ];
+                                                foreach ($clasificaciones as $clasif) {
+                                                  $selected = $recurso['clasificacion_recurso'] == $clasif ? 'selected' : '';
+                                                  echo "<option value='$clasif' $selected>$clasif</option>";
+                                                }
+                                                ?>
+                                              </select>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                              <label for="editar_tipo" class="form-label">Tipo</label>
+                                              <select class="form-select" id="editar_tipo" name="tipo" required
+                                                data-id="<?php echo $recurso['id_recurso'] ?>">
+                                                <?php
+                                                $tipos = ['Url', 'Archivo', 'Video'];
+                                                foreach ($tipos as $tipo) {
+                                                  $selected = $recurso['tipo_recurso'] == $tipo ? 'selected' : '';
+                                                  echo "<option value='$tipo' $selected>$tipo</option>";
+                                                }
+                                                ?>
+                                              </select>
+                                            </div>
+
+                                            <div class="col-md-12" id="campo-edicion-<?php echo $recurso['id_recurso'] ?>">
+                                              <?php if ($recurso['tipo_recurso'] == 'Archivo') : ?>
+                                                <div class="mb-3">
+                                                  <label class="form-label">Archivo actual:</label>
+                                                  <div class="input-group">
+                                                    <a href="<?php echo $recurso['contenido_recurso'] ?>"
+                                                      class="form-control"
+                                                      target="_blank">
+                                                      <?php echo basename($recurso['contenido_recurso']) ?>
+                                                    </a>
+                                                    <button type="button"
+                                                      class="btn btn-outline-secondary"
+                                                      onclick="document.getElementById('nuevo_archivo_<?php echo $recurso['id_recurso'] ?>').click()">
+                                                      Cambiar archivo
+                                                    </button>
+                                                    <input type="file"
+                                                      id="nuevo_archivo_<?php echo $recurso['id_recurso'] ?>"
+                                                      name="archivo"
+                                                      class="d-none">
+                                                  </div>
+                                                  <small class="text-muted"><?php echo $recurso['contenido_recurso'] ?></small>
+                                                </div>
+                                              <?php else: ?>
+                                                <div class="mb-3">
+                                                  <label class="form-label"><?php echo $recurso['tipo_recurso'] == 'Url' ? 'Enlace' : 'URL del Video' ?></label>
+                                                  <input type="url"
+                                                    class="form-control"
+                                                    name="contenido"
+                                                    value="<?php echo $recurso['contenido_recurso'] ?>"
+                                                    required>
+                                                </div>
+                                              <?php endif; ?>
+                                            </div>
+
+                                            <!-- Resto del formulario... -->
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <!-- Formulario para eliminar -->
+                                  <button type="button"
+                                    class="btn btn-danger"
+                                    onclick="confirmarEliminacion(<?php echo $usuario['id_usuario'] ?>)">
+                                    <i class="bi bi-trash-fill"></i>
+                                  </button>
+                                  <script>
+                                    function confirmarEliminacion(idUsuario) {
+                                      Swal.fire({
+                                        title: '¿Eliminar usuario?',
+                                        text: "¡Esta acción no se puede deshacer!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#cc2026',
+                                        cancelButtonColor: '#2C395E',
+                                        confirmButtonText: 'Sí, eliminar',
+                                        cancelButtonText: 'Cancelar'
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_usuario.php', {
+                                              method: 'POST',
+                                              headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                              },
+                                              body: 'id_usuario=' + idUsuario
+                                            })
+                                            .then(response => {
+                                              if (response.ok) {
+                                                if (response.ok) {
+                                                  Swal.fire({
+                                                    icon: 'success',
+                                                    title: '¡Eliminado!',
+                                                    text: 'El usuario se elimino con exito',
+                                                    confirmButtonColor: '#cc2026'
+                                                  }).then(() => {
+                                                    location.reload(); // Recarga completa
+                                                  });
+                                                }
+                                              } else {
+                                                response.json().then(data => {
+                                                  Swal.fire('Error', data.error || 'Error en el servidor', 'error');
+                                                });
+                                              }
+                                            })
+                                            .catch(error => {
+                                              Swal.fire('Error', 'Error de conexión: ' + error.message, 'error');
+                                            });
+                                        }
+                                      });
+                                    }
+                                  </script>
+                                </td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
                         </tbody>
                       </table>
                     </div>

@@ -156,3 +156,65 @@ $(document).ready(function() {
       }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Delegación de eventos para los selects de tipo
+  document.addEventListener('change', function(e) {
+    if (e.target.matches('[id^=editar_tipo]')) {
+      const idRecurso = e.target.dataset.id;
+      actualizarCampoEdicion(idRecurso);
+    }
+  });
+
+  // Función principal de actualización
+  window.actualizarCampoEdicion = function(idRecurso) {
+    const tipo = document.querySelector(`#editar_tipo[data-id="${idRecurso}"]`).value;
+    const tipoOriginal = document.querySelector(`#tipo_original_${idRecurso}`).value;
+    const contenidoOriginal = document.querySelector(`#contenido_original_${idRecurso}`).value;
+    const campoContenido = document.querySelector(`#campo-edicion-${idRecurso}`);
+
+    let html = '';
+
+    if (tipo === 'Archivo') {
+      html = `
+                <div class="mb-3">
+                    <label class="form-label">${tipo === tipoOriginal ? 'Archivo actual:' : 'Nuevo archivo:'}</label>
+                    <div class="input-group">
+                        ${tipo === tipoOriginal ? `
+                            <a href="${contenidoOriginal}" 
+                               class="form-control" 
+                               target="_blank">
+                                ${new URL(contenidoOriginal).pathname.split('/').pop()}
+                            </a>
+                            <button type="button" 
+                                    class="btn btn-outline-secondary" 
+                                    onclick="document.querySelector('#nuevo_archivo_${idRecurso}').click()">
+                                Cambiar archivo
+                            </button>
+                        ` : `
+                            <input type="file" 
+                                   class="form-control" 
+                                   name="archivo" 
+                                   ${tipo !== tipoOriginal ? 'required' : ''}
+                                   accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                        `}
+                    </div>
+                    ${tipo === tipoOriginal ? `
+                        <small class="text-muted">Archivo actual: ${contenidoOriginal}</small>
+                    ` : ''}
+                </div>`;
+    } else {
+      html = `
+                <div class="mb-3">
+                    <label class="form-label">${tipo === 'Url' ? 'Enlace' : 'URL del Video'}</label>
+                    <input type="url" 
+                           class="form-control" 
+                           name="contenido" 
+                           value="${tipo === tipoOriginal ? contenidoOriginal : ''}" 
+                           required>
+                </div>`;
+    }
+
+    campoContenido.innerHTML = html;
+  }
+});
