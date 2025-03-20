@@ -137,23 +137,23 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     switch ($recurso['tipo_recurso']) {
                                 case 'URL':
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-link-45deg"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                 case 'Archivo':
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-cloud-arrow-down-fill"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                 default:
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-film"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                     }
@@ -287,7 +287,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                         cancelButtonText: 'Cancelar'
                                       }).then((result) => {
                                         if (result.isConfirmed) {
-                                          fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_recurso.php', {
+                                          fetch('<?php echo APP_URL ?>app/controllers/recursos/eliminar_recurso.php', {
                                               method: 'POST',
                                               headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -363,23 +363,23 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     switch ($recurso['tipo_recurso']) {
                                 case 'URL':
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
-                                        <i class="bi bi-link-45deg"></i>
-                                      </button>
+                                    <a href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                      <i class="bi bi-link-45deg"></i>
+                                    </a>
                                     <?php
                                     break;
                                 case 'Archivo':
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-cloud-arrow-down-fill"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                 default:
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-film"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                     }
@@ -497,13 +497,13 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                   <!-- Formulario para eliminar -->
                                   <button type="button"
                                     class="btn btn-danger"
-                                    onclick="confirmarEliminacion(<?php echo $usuario['id_usuario'] ?>)">
+                                    onclick="confirmarEliminacion(<?php echo $recurso['id_recurso'] ?>)">
                                     <i class="bi bi-trash-fill"></i>
                                   </button>
                                   <script>
-                                    function confirmarEliminacion(idUsuario) {
+                                    function confirmarEliminacion(idRecurso) {
                                       Swal.fire({
-                                        title: '¿Eliminar usuario?',
+                                        title: '¿Eliminar Recurso?',
                                         text: "¡Esta acción no se puede deshacer!",
                                         icon: 'warning',
                                         showCancelButton: true,
@@ -513,12 +513,12 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                         cancelButtonText: 'Cancelar'
                                       }).then((result) => {
                                         if (result.isConfirmed) {
-                                          fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_usuario.php', {
+                                          fetch('<?php echo APP_URL ?>app/controllers/recursos/eliminar_recurso.php', {
                                               method: 'POST',
                                               headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
                                               },
-                                              body: 'id_usuario=' + idUsuario
+                                              body: 'id_recurso=' + idRecurso
                                             })
                                             .then(response => {
                                               if (response.ok) {
@@ -526,7 +526,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                   Swal.fire({
                                                     icon: 'success',
                                                     title: '¡Eliminado!',
-                                                    text: 'El usuario se elimino con exito',
+                                                    text: 'El recurso se elimino con exito',
                                                     confirmButtonColor: '#cc2026'
                                                   }).then(() => {
                                                     location.reload(); // Recarga completa
@@ -590,23 +590,23 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     switch ($recurso['tipo_recurso']) {
                                 case 'URL':
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
-                                        <i class="bi bi-link-45deg"></i>
-                                      </button>
+                                    <a href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                    <i class="bi bi-link-45deg"></i>
+                                    </a>
                                     <?php
                                     break;
                                 case 'Archivo':
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-cloud-arrow-down-fill"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                 default:
                                     ?>
-                                      <button type="button" class="btn btn-info editar-btn">
+                                      <a href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-film"></i>
-                                      </button>
+                                      </a>
                                     <?php
                                     break;
                                     }
@@ -726,13 +726,13 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                   <!-- Formulario para eliminar -->
                                   <button type="button"
                                     class="btn btn-danger"
-                                    onclick="confirmarEliminacion(<?php echo $usuario['id_usuario'] ?>)">
+                                    onclick="confirmarEliminacion(<?php echo $recurso['id_recurso'] ?>)">
                                     <i class="bi bi-trash-fill"></i>
                                   </button>
                                   <script>
-                                    function confirmarEliminacion(idUsuario) {
+                                    function confirmarEliminacion(idRecurso) {
                                       Swal.fire({
-                                        title: '¿Eliminar usuario?',
+                                        title: '¿Eliminar recurso?',
                                         text: "¡Esta acción no se puede deshacer!",
                                         icon: 'warning',
                                         showCancelButton: true,
@@ -742,12 +742,12 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                         cancelButtonText: 'Cancelar'
                                       }).then((result) => {
                                         if (result.isConfirmed) {
-                                          fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_usuario.php', {
+                                          fetch('<?php echo APP_URL ?>app/controllers/recursos/eliminar_recurso.php', {
                                               method: 'POST',
                                               headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
                                               },
-                                              body: 'id_usuario=' + idUsuario
+                                              body: 'id_recurso=' + idRecurso
                                             })
                                             .then(response => {
                                               if (response.ok) {
@@ -755,7 +755,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                   Swal.fire({
                                                     icon: 'success',
                                                     title: '¡Eliminado!',
-                                                    text: 'El usuario se elimino con exito',
+                                                    text: 'El recurso se elimino con exito',
                                                     confirmButtonColor: '#cc2026'
                                                   }).then(() => {
                                                     location.reload(); // Recarga completa
