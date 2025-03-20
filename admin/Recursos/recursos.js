@@ -150,7 +150,6 @@ $(document).ready(function() {
         materialLabel.textContent = "Archivo";
         materialInput.type = "file";
         materialInput.setAttribute("required", "true");
-        inputContenido.accept = ".pdf,.doc,.docx,.xls,.xlsx,.zip,.rar";
       } else {
         materialField.hidden = true;
         materialInput.removeAttribute("required");
@@ -168,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Función principal de actualización
-  window.actualizarCampoEdicion = function(idRecurso) {
+window.actualizarCampoEdicion = function(idRecurso) {
     const tipo = document.querySelector(`#editar_tipo[data-id="${idRecurso}"]`).value;
     const tipoOriginal = document.querySelector(`#tipo_original_${idRecurso}`).value;
     const contenidoOriginal = document.querySelector(`#contenido_original_${idRecurso}`).value;
@@ -177,45 +176,53 @@ document.addEventListener('DOMContentLoaded', function() {
     let html = '';
 
     if (tipo === 'Archivo') {
-      html = `
-                <div class="mb-3">
-                    <label class="form-label">${tipo === tipoOriginal ? 'Archivo actual:' : 'Nuevo archivo:'}</label>
-                    <div class="input-group">
-                        ${tipo === tipoOriginal ? `
-                            <a href="${contenidoOriginal}" 
-                               class="form-control" 
-                               target="_blank">
-                                ${new URL(contenidoOriginal).pathname.split('/').pop()}
-                            </a>
-                            <button type="button" 
-                                    class="btn btn-outline-secondary" 
-                                    onclick="document.querySelector('#nuevo_archivo_${idRecurso}').click()">
-                                Cambiar archivo
-                            </button>
-                        ` : `
-                            <input type="file" 
-                                   class="form-control" 
-                                   name="archivo" 
-                                   ${tipo !== tipoOriginal ? 'required' : ''}
-                                   accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-                        `}
-                    </div>
-                    ${tipo === tipoOriginal ? `
-                        <small class="text-muted">Archivo actual: ${contenidoOriginal}</small>
-                    ` : ''}
-                </div>`;
-    } else {
-      html = `
-                <div class="mb-3">
-                    <label class="form-label">${tipo === 'URL' ? 'Enlace' : 'URL del Video'}</label>
-                    <input type="URL" 
+        // Extraer nombre del archivo de manera segura
+        const filename = contenidoOriginal.split('/').pop(); // Cambio clave aquí
+        
+        html = `
+        <div class="mb-3">
+            <label class="form-label">${tipo === tipoOriginal ? 'Archivo actual:' : 'Nuevo archivo:'}</label>
+            <div class="input-group">
+                ${tipo === tipoOriginal ? `
+                    <a href="${contenidoOriginal}" 
+                       class="form-control" 
+                       target="_blank">
+                        ${filename}
+                    </a>
+                    <button type="button" 
+                            class="btn btn-outline-secondary" 
+                            onclick="document.querySelector('#nuevo_archivo_${idRecurso}').click()">
+                        Cambiar archivo
+                    </button>
+                    <input type="file" 
+                           id="nuevo_archivo_${idRecurso}"
+                           name="archivo" 
+                           class="d-none">
+                ` : `
+                    <input type="file" 
                            class="form-control" 
-                           name="contenido" 
-                           value="${tipo === tipoOriginal ? contenidoOriginal : ''}" 
-                           required>
-                </div>`;
+                           name="archivo" 
+                           ${tipo !== tipoOriginal ? 'required' : ''}
+                           accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                `}
+            </div>
+            ${tipo === tipoOriginal ? `
+                <small class="text-muted">Archivo actual: ${contenidoOriginal}</small>
+            ` : ''}
+        </div>`;
+    } else {
+        html = `
+        <div class="mb-3">
+            <label class="form-label">${tipo === 'URL' ? 'Enlace' : 'URL del Video'}</label>
+            <input type="URL" 
+                   class="form-control" 
+                   name="contenido" 
+                   value="${tipo === tipoOriginal ? contenidoOriginal : ''}" 
+                   required>
+        </div>`;
     }
 
     campoContenido.innerHTML = html;
-  }
+}
+
 });

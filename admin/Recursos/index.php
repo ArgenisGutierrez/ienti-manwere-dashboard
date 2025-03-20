@@ -261,8 +261,6 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                 </div>
                                               <?php endif; ?>
                                             </div>
-
-                                            <!-- Resto del formulario... -->
                                           </form>
                                         </div>
                                       </div>
@@ -273,13 +271,13 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                   <!-- Formulario para eliminar -->
                                   <button type="button"
                                     class="btn btn-danger"
-                                    onclick="confirmarEliminacion(<?php echo $usuario['id_usuario'] ?>)">
+                                    onclick="confirmarEliminacion(<?php echo $recurso['id_recurso'] ?>)">
                                     <i class="bi bi-trash-fill"></i>
                                   </button>
                                   <script>
-                                    function confirmarEliminacion(idUsuario) {
+                                    function confirmarEliminacion(idRecurso) {
                                       Swal.fire({
-                                        title: '¿Eliminar usuario?',
+                                        title: '¿Eliminar Recurso?',
                                         text: "¡Esta acción no se puede deshacer!",
                                         icon: 'warning',
                                         showCancelButton: true,
@@ -289,12 +287,12 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                         cancelButtonText: 'Cancelar'
                                       }).then((result) => {
                                         if (result.isConfirmed) {
-                                          fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_usuario.php', {
+                                          fetch('<?php echo APP_URL ?>app/controllers/usuarios/eliminar_recurso.php', {
                                               method: 'POST',
                                               headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
                                               },
-                                              body: 'id_usuario=' + idUsuario
+                                              body: 'id_recurso=' + idRecurso
                                             })
                                             .then(response => {
                                               if (response.ok) {
@@ -302,7 +300,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                   Swal.fire({
                                                     icon: 'success',
                                                     title: '¡Eliminado!',
-                                                    text: 'El usuario se elimino con exito',
+                                                    text: 'El recurso se elimino con exito',
                                                     confirmButtonColor: '#cc2026'
                                                   }).then(() => {
                                                     location.reload(); // Recarga completa
@@ -489,8 +487,6 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                 </div>
                                               <?php endif; ?>
                                             </div>
-
-                                            <!-- Resto del formulario... -->
                                           </form>
                                         </div>
                                       </div>
