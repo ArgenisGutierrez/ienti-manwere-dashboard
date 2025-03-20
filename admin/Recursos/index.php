@@ -137,7 +137,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     switch ($recurso['tipo_recurso']) {
                                 case 'URL':
                                     ?>
-                                      <a href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-link-45deg"></i>
                                       </a>
                                     <?php
@@ -151,7 +151,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     break;
                                 default:
                                     ?>
-                                      <a href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-film"></i>
                                       </a>
                                     <?php
@@ -363,7 +363,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     switch ($recurso['tipo_recurso']) {
                                 case 'URL':
                                     ?>
-                                    <a href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                    <a target="_blank" href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                       <i class="bi bi-link-45deg"></i>
                                     </a>
                                     <?php
@@ -377,7 +377,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     break;
                                 default:
                                     ?>
-                                      <a href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-film"></i>
                                       </a>
                                     <?php
@@ -590,7 +590,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     switch ($recurso['tipo_recurso']) {
                                 case 'URL':
                                     ?>
-                                    <a href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                    <a target="_blank" href="<?php echo $recurso['contenido_recurso'];?>" download="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                     <i class="bi bi-link-45deg"></i>
                                     </a>
                                     <?php
@@ -604,7 +604,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     break;
                                 default:
                                     ?>
-                                      <a href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo $recurso['contenido_recurso']?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-film"></i>
                                       </a>
                                     <?php
