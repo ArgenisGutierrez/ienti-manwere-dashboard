@@ -150,6 +150,7 @@ $(document).ready(function() {
         materialLabel.textContent = "Archivo";
         materialInput.type = "file";
         materialInput.setAttribute("required", "true");
+        inputContenido.accept = ".pdf,.doc,.docx,.xls,.xlsx,.zip,.rar";
       } else {
         materialField.hidden = true;
         materialInput.removeAttribute("required");
