@@ -82,7 +82,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                           <label for="recurso_tipo" class="form-label">Tipo</label>
                           <select class="form-select" id="recurso_tipo" name="recurso_tipo" required>
                             <option selected disabled value="">...</option>
-                            <option value="Url">Url</option>
+                            <option value="URL">URL</option>
                             <option value="Archivo">Archivo</option>
                             <option value="Video">Video</option>
                           </select>
@@ -219,7 +219,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                               <select class="form-select" id="editar_tipo" name="tipo" required
                                                 data-id="<?php echo $recurso['id_recurso'] ?>">
                                                 <?php
-                                                $tipos = ['Url', 'Archivo', 'Video'];
+                                                $tipos = ['URL', 'Archivo', 'Video'];
                                                 foreach ($tipos as $tipo) {
                                                   $selected = $recurso['tipo_recurso'] == $tipo ? 'selected' : '';
                                                   echo "<option value='$tipo' $selected>$tipo</option>";
@@ -252,7 +252,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                 </div>
                                               <?php else: ?>
                                                 <div class="mb-3">
-                                                  <label class="form-label"><?php echo $recurso['tipo_recurso'] == 'Url' ? 'Enlace' : 'URL del Video' ?></label>
+                                                  <label class="form-label"><?php echo $recurso['tipo_recurso'] == 'URL' ? 'Enlace' : 'URL del Video' ?></label>
                                                   <input type="url"
                                                     class="form-control"
                                                     name="contenido"

@@ -142,8 +142,8 @@ $(document).ready(function() {
 
       materialField.hidden = false;
 
-      if (tipo === "Url" || tipo === "Video") {
-        materialLabel.textContent = tipo === "Url" ? "URL" : "URL";
+      if (tipo === "URL" || tipo === "Video") {
+        materialLabel.textContent = tipo === "URL" ? "URL" : "URL";
         materialInput.type = "text";
         materialInput.setAttribute("required", "true");
       } else if (tipo === "Archivo") {
@@ -206,8 +206,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       html = `
                 <div class="mb-3">
-                    <label class="form-label">${tipo === 'Url' ? 'Enlace' : 'URL del Video'}</label>
-                    <input type="url" 
+                    <label class="form-label">${tipo === 'URL' ? 'Enlace' : 'URL del Video'}</label>
+                    <input type="URL" 
                            class="form-control" 
                            name="contenido" 
                            value="${tipo === tipoOriginal ? contenidoOriginal : ''}" 
