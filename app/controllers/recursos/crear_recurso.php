@@ -1,64 +1,94 @@
 <?php
-require_once '../../../app/config.php';
 session_start();
+require_once '../../../app/config.php';
 
-// Verificar método POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    $_SESSION['mensaje'] = "Acceso no autorizado";
+// Validar campos obligatorios
+if (empty($_POST['descripcion_recurso']) 
+    || empty($_POST['clasificacion_recurso']) 
+    || empty($_POST['tipo_recurso'])
+) {
+    $_SESSION['mensaje'] = "Faltan datos obligatorios";
     $_SESSION['icono'] = "error";
-    header("Location:" . APP_URL . "admin/Usuarios/");
+    header("Location:" . APP_URL . "admin/Recursos/");
     exit;
 }
 
-// Obtener y sanitizar datos
-$nombre = trim($_POST['nombre_usuario'] ?? '');
-$password = $_POST['password_usuario'] ?? '';
-$email = trim($_POST['email_usuario'] ?? '');
-$id_rol = $_POST['id_rol'] ?? null;
+// Obtener datos del formulario
+$descripcion = $_POST['descripcion_recurso'];
+$clasificacion = $_POST['clasificacion_recurso'];
+$tipo = $_POST['tipo_recurso'];
+$estado = '1';
+$contenido = '';
 
-// Validaciones básicas
-if (empty($nombre) || empty($password) || empty($email) || empty($id_rol)) {
-    $_SESSION['mensaje'] = "Todos los campos son requeridos";
-    $_SESSION['icono'] = "error";
-    header("Location:" . APP_URL . "admin/Usuarios/");
-    exit;
+// Manejar contenido según el tipo
+if ($tipo === 'Archivo') {
+    // Validar archivo subido
+    if (!isset($_FILES['contenido_recurso']) 
+        || $_FILES['contenido_recurso']['error'] !== UPLOAD_ERR_OK
+    ) {
+        $_SESSION['mensaje'] = "Error: Debes subir un archivo";
+        $_SESSION['icono'] = "error";
+        header("Location:" . APP_URL . "admin/Recursos/");
+        exit;
+
+    }
+
+    // Configurar directorio y nombre del archivo
+    $directorioDestino = $_SERVER['DOCUMENT_ROOT'] . '/ienti-php/public/recursos/';
+    $nombreArchivo = uniqid() . '_' . basename($_FILES['contenido_recurso']['name']);
+    $rutaCompleta = $directorioDestino . $nombreArchivo;
+
+    // Crear directorio si no existe
+    if (!file_exists($directorioDestino)) {
+        mkdir($directorioDestino, 0755, true);
+    }
+
+    // Mover el archivo
+    if (move_uploaded_file($_FILES['contenido_recurso']['tmp_name'], $rutaCompleta)) {
+        $contenido = $nombreArchivo;
+    } else {
+        $_SESSION['mensaje'] = "Error al guardar el archivo";
+        $_SESSION['icono'] = "error";
+        header("Location:" . APP_URL . "admin/Recursos/");
+        exit;
+    }
+} else {
+    // Validar URL/Video
+    $contenido = $_POST['contenido_recurso'] ?? '';
+    if (empty($contenido)) {
+        $_SESSION['mensaje'] = "El campo URL/Video es obligatorio";
+        $_SESSION['icono'] = "error";
+        header("Location:" . APP_URL . "admin/Recursos/");
+        exit;
+    }
 }
 
-// Validar que las contraseñas coincidan (si aplica)
-if ($_POST['password_usuario'] !== $_POST['password_usuario2']) {
-    $_SESSION['mensaje'] = "Las contraseñas no coinciden";
-    $_SESSION['icono'] = "error";
-    header("Location:" . APP_URL . "admin/Usuarios/");
-    exit;
-}
-
+// Insertar en la base de datos
 try {
-    // Hash de contraseña
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-    $sql = $pdo->prepare(
-        "INSERT INTO usuarios 
-        (nombre_usuario, password_usuario, email_usuario, id_rol, fyh_creacion,estado) 
-        VALUES (?, ?, ?, ?, ?,?)"
+    $sentencia = $pdo->prepare(
+        'INSERT INTO recursos 
+        (descripcion_recurso, clasificacion_recurso, tipo_recurso, contenido_recurso, fyh_creacion, estado)
+        VALUES 
+        (:descripcion, :clasificacion, :tipo, :contenido, NOW(), :estado)'
     );
 
-    $sql->execute(
+    $sentencia->execute(
         [
-        $nombre,
-        $passwordHash,
-        $email,
-        $id_rol, // <- Aquí se usa el rol
-        $fechaHora,
-        1
+        ':descripcion' => $descripcion,
+        ':clasificacion' => $clasificacion,
+        ':tipo' => $tipo,
+        ':contenido' => $contenido,
+        ':estado' => $estado
         ]
     );
 
-    $_SESSION['mensaje'] = "Usuario creado exitosamente";
+    $_SESSION['mensaje'] = "Recurso creado con exito";
     $_SESSION['icono'] = "success";
+    header("Location:" . APP_URL . "admin/Recursos/");
+    exit;
 } catch (PDOException $e) {
-    $_SESSION['mensaje'] = "Error al crear usuario: Email o Usuario ya Existen";
+    $_SESSION['mensaje'] = "Error de la base de datos".$e->getMessage();
     $_SESSION['icono'] = "error";
+    header("Location:" . APP_URL . "admin/Recursos/");
+    exit;
 }
-
-header("Location:" . APP_URL . "admin/Usuarios/");
-exit;
