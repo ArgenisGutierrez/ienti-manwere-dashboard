@@ -267,7 +267,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     </div>
                                   </div>
                                 </td>
-                                <td>
+<td>
                                   <!-- Formulario para eliminar -->
                                   <button type="button"
                                     class="btn btn-danger"

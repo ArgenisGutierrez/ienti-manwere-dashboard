@@ -1,64 +1,62 @@
 <?php
 require_once '../../config.php';
-
-// Iniciar sesión para mensajes de feedback
 session_start();
 
-// Verificar método POST y existencia de ID
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['id_usuario'])) {
+// Verificar método POST y parámetros
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['id_recurso'])) {
     $_SESSION['mensaje'] = "Solicitud inválida";
     $_SESSION['icono'] = "error";
-    header("Location:" . APP_URL . "admin/Usuarios/");
+    header("Location:" . APP_URL . "admin/Recursos/");
     exit;
 }
 
 try {
-    // Validar y sanitizar ID
-    $id_usuario = filter_input(INPUT_POST, 'id_usuario', FILTER_VALIDATE_INT);
+    // Obtener datos del recurso ANTES de eliminar
+    $query = $pdo->prepare("SELECT tipo_recurso, contenido_recurso FROM recursos WHERE id_recurso = ?");
+    $query->execute([$_POST['id_recurso']]);
+    $recurso = $query->fetch(PDO::FETCH_ASSOC);
 
-    if (!$id_usuario || $id_usuario <= 0) {
-        throw new Exception("ID de usuario inválido");
+    if (!$recurso) {
+        throw new Exception("Recurso no encontrado");
     }
 
-    // Configurar PDO para errores
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Si el recurso es de tipo 'Archivo', proceder a eliminar el archivo físico
+    if ($recurso['tipo_recurso'] === 'Archivo') {
+        $url_contenido = $recurso['contenido_recurso'];
 
-    // Verificar si es el último administrador
-    $stmt = $pdo->prepare(
-        "SELECT COUNT(*) 
-                          FROM usuarios u
-                          INNER JOIN roles r ON u.id_rol = r.id_rol
-                          WHERE r.nombre_rol = 'Administrador'"
-    );
-    $stmt->execute();
-    $adminCount = $stmt->fetchColumn();
+        // Definir la ruta base y asegurarse de que termina en "/"
+        $ruta_base = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . "/ienti-php/public/recursos/";
+        
+        // Obtener el nombre del archivo a partir de la URL
+        $ruta_url = parse_url($url_contenido, PHP_URL_PATH);
+        $nombre_archivo = basename($ruta_url);
+        $ruta_completa = $ruta_base . $nombre_archivo;
 
-    $stmt = $pdo->prepare(
-        "SELECT r.nombre_rol 
-                          FROM usuarios u
-                          INNER JOIN roles r ON u.id_rol = r.id_rol
-                          WHERE u.id_usuario = :id_usuario"
-    );
-    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-    $stmt->execute();
-    $rolUsuario = $stmt->fetchColumn();
+        // Verificar que las rutas sean válidas
+        $ruta_real = realpath($ruta_completa);
+        $ruta_base_real = realpath($ruta_base);
+        if (!$ruta_real || strpos($ruta_real, $ruta_base_real) !== 0) {
+            throw new Exception("Ruta de archivo inválida: " . $ruta_completa);
+        }
 
-    if ($rolUsuario === 'Administrador' && $adminCount === 1) {
-        throw new Exception("No se puede eliminar al último administrador");
+        // Comprobar que el archivo existe y se intenta eliminar
+        if (file_exists($ruta_completa)) {
+            if (!unlink($ruta_completa)) {
+                throw new Exception("Error al eliminar el archivo: " . $ruta_completa);
+            }
+        } else {
+            // Si el archivo no existe, se registra una advertencia y se continúa
+            error_log("Advertencia: El archivo no existe en la ruta: " . $ruta_completa);
+        }
     }
 
-    // Eliminar usuario
-    $query = $pdo->prepare("DELETE FROM usuarios WHERE id_usuario = :id_usuario");
-    $query->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-    $query->execute();
+    // Eliminar el registro de la base de datos
+    $query = $pdo->prepare("DELETE FROM recursos WHERE id_recurso = ?");
+    $query->execute([$_POST['id_recurso']]);
 
-    if ($query->rowCount() === 0) {
-        $_SESSION['mensaje'] = "El usuario no existe o ya fue eliminado";
-        $_SESSION['icono'] = "warning";
-    } else {
-        $_SESSION['mensaje'] = "Usuario eliminado exitosamente";
-        $_SESSION['icono'] = "success";
-    }
+    $_SESSION['mensaje'] = "Recurso y archivo eliminados exitosamente";
+    $_SESSION['icono'] = "success";
+
 } catch (PDOException $e) {
     $_SESSION['mensaje'] = "Error en base de datos: " . $e->getMessage();
     $_SESSION['icono'] = "error";
@@ -67,5 +65,6 @@ try {
     $_SESSION['icono'] = "error";
 }
 
-header("Location:" . APP_URL . "admin/Usuarios/");
+header("Location:" . APP_URL . "admin/Recursos/");
 exit;
+?>
