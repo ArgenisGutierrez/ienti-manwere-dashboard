@@ -66,12 +66,12 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                     <div class="modal-body">
                     <form action="<?php echo APP_URL;?>app/controllers/recursos/crear_recurso.php" id="recurso_form" method="post" autocomplete="off" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
                         <div class="col-md-12">
-                          <label for="recurso_descripcion" class="form-label">Descripción</label>
-                          <input type="text" class="form-control" id="recurso_descripcion" name="descripcion_recurso" required />
+                          <label for="descripcion_recurso" class="form-label">Descripción</label>
+                          <input type="text" class="form-control" id="descripcion_recurso" name="descripcion_recurso" required />
                         </div>
                         <div class="col-md-12">
-                          <label for="recurso_clasificacion" class="form-label">Clasificación</label>
-                          <select class="form-select" id="recurso_clasificacion" name="clasificacion_recurso" required>
+                          <label for="clasificacion_recurso" class="form-label">Clasificación</label>
+                          <select class="form-select" id="clasificacion_recurso" name="clasificacion_recurso" required>
                             <option selected disabled value="">...</option>
                             <option value="Material Normativo">Material Normativo</option>
                             <option value="Material Relativo a Capacitación">Material Relativo a Capacitación</option>
@@ -79,8 +79,8 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                           </select>
                         </div>
                         <div class="col-md-12">
-                          <label for="recurso_tipo" class="form-label">Tipo</label>
-                          <select class="form-select" id="recurso_tipo" name="tipo_recurso" required>
+                          <label for="tipo_recurso" class="form-label">Tipo</label>
+                          <select class="form-select" id="tipo_recurso" name="tipo_recurso" required>
                             <option selected disabled value="">...</option>
                             <option value="URL">URL</option>
                             <option value="Archivo">Archivo</option>
@@ -88,8 +88,8 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                           </select>
                         </div>
                         <div class="col-md-12" id="materialField" hidden>
-                          <label for="recurso_contenido" class="form-label" id="materialLabel"></label>
-                          <input type="text" class="form-control" id="recurso_contenido" name="contenido_recurso" required />
+                          <label for="contenido_recurso" class="form-label" id="materialLabel"></label>
+                          <input type="text" class="form-control" id="contenido_recurso" name="contenido_recurso" required />
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-primary" value="add" name="action">

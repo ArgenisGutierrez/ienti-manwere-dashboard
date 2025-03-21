@@ -133,12 +133,12 @@ $(function() {
 $(document).ready(function() {
   // Modal generar campo
   document
-    .getElementById("recurso_tipo")
+    .getElementById("tipo_recurso")
     .addEventListener("change", function() {
       const tipo = this.value;
       const materialField = document.getElementById("materialField");
       const materialLabel = document.getElementById("materialLabel");
-      const materialInput = document.getElementById("recurso_contenido");
+      const materialInput = document.getElementById("contenido_recurso");
 
       materialField.hidden = false;
 
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html = `
         <div class="mb-3">
             <label class="form-label">${tipo === 'URL' ? 'Enlace' : 'URL del Video'}</label>
-            <input type="URL" 
+            <input type="url" 
                    class="form-control" 
                    name="contenido_recurso" 
                    value="${tipo === tipoOriginal ? contenidoOriginal : ''}" 
