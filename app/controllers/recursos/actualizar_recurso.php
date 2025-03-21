@@ -1,64 +1,83 @@
 <?php
-require_once '../../../app/config.php';
 session_start();
+require_once '../../config.php';
 
-// Verificar método POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    $_SESSION['mensaje'] = "Acceso no autorizado";
-    $_SESSION['icono'] = "error";
-    header("Location:" . APP_URL . "admin/Usuarios/");
-    exit;
-}
-
-// Obtener datos
-$id_usuario = $_POST['id_usuario'] ?? null;
-$nombre_usuario = trim($_POST['nombre_usuario'] ?? '');
-$email_usuario = trim($_POST['email_usuario'] ?? '');
-$id_rol = $_POST['id_rol'] ?? null;
-$estado = $_POST['estado'] ?? null;
-
-// Validaciones
-$errores = [];
-if ($nombre_usuario === '') $errores[] = "Nombre requerido";
-if ($email_usuario === '') $errores[] = "Email requerido";
-if ($id_rol === null || $id_rol === '') $errores[] = "Rol requerido";
-if ($estado === null || $estado === '') $errores[] = "Estado requerido";
-if (empty($id_usuario)) $errores[] = "ID de usuario inválido";
-
-if (!empty($errores)) {
-    $_SESSION['mensaje'] = implode("<br>", $errores);
-    $_SESSION['icono'] = "error";
-    header("Location:" . APP_URL . "admin/Usuarios/");
-    exit;
-}
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 try {
-    $sql = $pdo->prepare(
-        "UPDATE usuarios 
-        SET nombre_usuario = :nombre,
-            email_usuario = :email,
-            id_rol = :rol,
-            estado = :estado,
-            fyh_modificacion = :fecha
-        WHERE id_usuario = :id"
+
+    // Obtener datos actuales
+    $stmt = $pdo->prepare("SELECT * FROM recursos WHERE id_recurso = ?");
+    $stmt->execute([$_POST['id_recurso']]);
+    $recurso_actual = $stmt->fetch();
+
+    if (!$recurso_actual) {
+        throw new Exception("Recurso no encontrado");
+    }
+
+    $nuevo_contenido = $recurso_actual['contenido_recurso'];
+    $eliminar_archivo = false;
+
+    // Procesar nuevo archivo
+    if ($_POST['tipo_recurso'] === 'Archivo' && !empty($_FILES['contenido_recurso']['name'])) {
+        $directorio = $_SERVER['DOCUMENT_ROOT'] . '/ienti-php/public/recursos/';
+        $nombre_archivo = uniqid() . '_' . basename($_FILES['contenido_recurso']['name']);
+        $ruta_destino = $directorio . $nombre_archivo;
+
+        // Validar y subir archivo
+        if (!move_uploaded_file($_FILES['contenido_recurso']['tmp_name'], $ruta_destino)) {
+            throw new Exception("Error al subir el archivo");
+        }
+        
+        $nuevo_contenido = $nombre_archivo;
+        $eliminar_archivo = true;
+    } 
+    elseif ($_POST['tipo_recurso'] !== 'Archivo') {
+        $nuevo_contenido = $_POST['contenido_recurso'];
+        $eliminar_archivo = ($recurso_actual['tipo_recurso'] === 'Archivo');
+    }
+
+    // Eliminar archivo anterior si es necesario
+    if ($eliminar_archivo && $recurso_actual['tipo_recurso'] === 'Archivo') {
+        $ruta_anterior = $_SERVER['DOCUMENT_ROOT'] . '/ienti-php/public/recursos/' . $recurso_actual['contenido_recurso'];
+        
+        if (file_exists($ruta_anterior)) {
+            if (!unlink($ruta_anterior)) {
+                error_log("No se pudo eliminar: $ruta_anterior");
+            }
+        } else {
+            error_log("Archivo anterior no encontrado: $ruta_anterior");
+        }
+    }
+
+    // Actualizar BD
+    $stmt = $pdo->prepare(
+        "UPDATE recursos SET 
+        descripcion_recurso = ?,
+        clasificacion_recurso = ?,
+        tipo_recurso = ?,
+        contenido_recurso = ?
+        WHERE id_recurso = ?"
     );
 
-    $sql->execute([
-        ':nombre' => $nombre_usuario,
-        ':email' => $email_usuario,
-        ':rol' => $id_rol,
-        ':estado' => $estado,
-        ':fecha' => $fechaHora,
-        ':id' => $id_usuario
-    ]);
+    $stmt->execute(
+        [
+        $_POST['descripcion_recurso'],
+        $_POST['clasificacion_recurso'],
+        $_POST['tipo_recurso'],
+        $nuevo_contenido,
+        $_POST['id_recurso']
+        ]
+    );
 
-    $_SESSION['mensaje'] = "¡Usuario actualizado!";
-    $_SESSION['icono'] = "success";
+    $_SESSION['mensaje'] = "Actualización exitosa!";
+    $_SESSION['mensaje_tipo'] = "success";
 
-} catch (PDOException $e) {
+} catch (Exception $e) {
     $_SESSION['mensaje'] = "Error: " . $e->getMessage();
-    $_SESSION['icono'] = "error";
+    $_SESSION['mensaje_tipo'] = "danger";
 }
 
-header("Location:" . APP_URL . "admin/Usuarios/");
+header("Location: " . APP_URL . "/admin/Recursos");
 exit;
