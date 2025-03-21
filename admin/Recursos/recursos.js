@@ -196,12 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     </button>
                     <input type="file" 
                            id="nuevo_archivo_${idRecurso}"
-                           name="archivo" 
+                           name="contenido_recurso" 
                            class="d-none">
                 ` : `
                     <input type="file" 
                            class="form-control" 
-                           name="archivo" 
+                           name="contenido_recurso" 
                            ${tipo !== tipoOriginal ? 'required' : ''}
                            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
                 `}
