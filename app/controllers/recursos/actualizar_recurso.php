@@ -2,9 +2,6 @@
 session_start();
 require_once '../../config.php';
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 try {
 
     // Obtener datos actuales
@@ -44,10 +41,10 @@ try {
         
         if (file_exists($ruta_anterior)) {
             if (!unlink($ruta_anterior)) {
-                error_log("No se pudo eliminar: $ruta_anterior");
+                throw new Exception("No se pudo eliminar: $ruta_anterior");
             }
         } else {
-            error_log("Archivo anterior no encontrado: $ruta_anterior");
+            throw new Exception("Archivo anterior no encontrado: $ruta_anterior");
         }
     }
 
@@ -72,11 +69,11 @@ try {
     );
 
     $_SESSION['mensaje'] = "Actualización exitosa!";
-    $_SESSION['mensaje_tipo'] = "success";
+    $_SESSION['icono'] = "success";
 
 } catch (Exception $e) {
     $_SESSION['mensaje'] = "Error: " . $e->getMessage();
-    $_SESSION['mensaje_tipo'] = "danger";
+    $_SESSION['icono'] = "error";
 }
 
 header("Location: " . APP_URL . "/admin/Recursos");

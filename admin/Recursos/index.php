@@ -178,7 +178,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                          <form id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
+                                          <form autocomplete="off" id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
                                             action="<?php echo APP_URL ?>app/controllers/recursos/actualizar_recurso.php"
                                             enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
 
@@ -397,7 +397,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     <i class="bi bi-pencil-fill"></i>
                                   </button>
                                   <!-- Modal único para cada registro -->
-                                  <div class="modal fade" id="editarRole<?php echo $recurso['id_recurso'] ?>" tabindex="-1"
+<div class="modal fade" id="editarRole<?php echo $recurso['id_recurso'] ?>" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
@@ -408,13 +408,12 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                          <form id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
+                                          <form autocomplete="off" id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
                                             action="<?php echo APP_URL ?>app/controllers/recursos/actualizar_recurso.php"
                                             enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
 
                                             <!-- Campos ocultos importantes -->
                                             <input type="hidden" name="id_recurso" value="<?php echo $recurso['id_recurso'] ?>">
-                                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
                                             <input type="hidden" id="tipo_original_<?php echo $recurso['id_recurso'] ?>"
                                               value="<?php echo $recurso['tipo_recurso'] ?>">
                                             <input type="hidden" id="contenido_original_<?php echo $recurso['id_recurso'] ?>"
@@ -423,13 +422,13 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                             <!-- Resto de campos del formulario... -->
                                             <div class="col-md-12">
                                               <label for="editar_descripcion" class="form-label">Descripción</label>
-                                              <input type="text" class="form-control" id="editar_descripcion"
+                                              <input type="text" name="descripcion_recurso" class="form-control" id="editar_descripcion"
                                                 name="descripcion" value="<?php echo htmlspecialchars($recurso['descripcion_recurso']) ?>" required>
                                             </div>
 
                                             <div class="col-md-12">
                                               <label for="editar_clasificacion" class="form-label">Clasificación</label>
-                                              <select class="form-select" id="editar_clasificacion" name="clasificacion" required>
+                                              <select class="form-select" id="editar_clasificacion" name="clasificacion_recurso" required>
                                                 <?php
                                                 $clasificaciones = [
                                                   'Material Normativo',
@@ -446,7 +445,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
 
                                             <div class="col-md-12">
                                               <label for="editar_tipo" class="form-label">Tipo</label>
-                                              <select class="form-select" id="editar_tipo" name="tipo" required
+                                              <select class="form-select" id="editar_tipo" name="tipo_recurso" required
                                                 data-id="<?php echo $recurso['id_recurso'] ?>">
                                                 <?php
                                                 $tipos = ['URL', 'Archivo', 'Video'];
@@ -475,7 +474,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                     </button>
                                                     <input type="file"
                                                       id="nuevo_archivo_<?php echo $recurso['id_recurso'] ?>"
-                                                      name="archivo"
+                                                      name="contenido_recurso"
                                                       class="d-none">
                                                   </div>
                                                   <small class="text-muted"><?php echo $recurso['contenido_recurso'] ?></small>
@@ -485,7 +484,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                   <label class="form-label"><?php echo $recurso['tipo_recurso'] == 'URL' ? 'Enlace' : 'URL del Video' ?></label>
                                                   <input type="url"
                                                     class="form-control"
-                                                    name="contenido"
+                                                    name="contenido_recurso"
                                                     value="<?php echo $recurso['contenido_recurso'] ?>"
                                                     required>
                                                 </div>
@@ -629,7 +628,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     <i class="bi bi-pencil-fill"></i>
                                   </button>
                                   <!-- Modal único para cada registro -->
-                                  <div class="modal fade" id="editarRole<?php echo $recurso['id_recurso'] ?>" tabindex="-1"
+<div class="modal fade" id="editarRole<?php echo $recurso['id_recurso'] ?>" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
@@ -640,13 +639,12 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                          <form id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
+                                          <form autocomplete="off" id="form-editar-<?php echo $recurso['id_recurso'] ?>" method="POST"
                                             action="<?php echo APP_URL ?>app/controllers/recursos/actualizar_recurso.php"
                                             enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
 
                                             <!-- Campos ocultos importantes -->
                                             <input type="hidden" name="id_recurso" value="<?php echo $recurso['id_recurso'] ?>">
-                                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
                                             <input type="hidden" id="tipo_original_<?php echo $recurso['id_recurso'] ?>"
                                               value="<?php echo $recurso['tipo_recurso'] ?>">
                                             <input type="hidden" id="contenido_original_<?php echo $recurso['id_recurso'] ?>"
@@ -655,13 +653,13 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                             <!-- Resto de campos del formulario... -->
                                             <div class="col-md-12">
                                               <label for="editar_descripcion" class="form-label">Descripción</label>
-                                              <input type="text" class="form-control" id="editar_descripcion"
+                                              <input type="text" name="descripcion_recurso" class="form-control" id="editar_descripcion"
                                                 name="descripcion" value="<?php echo htmlspecialchars($recurso['descripcion_recurso']) ?>" required>
                                             </div>
 
                                             <div class="col-md-12">
                                               <label for="editar_clasificacion" class="form-label">Clasificación</label>
-                                              <select class="form-select" id="editar_clasificacion" name="clasificacion" required>
+                                              <select class="form-select" id="editar_clasificacion" name="clasificacion_recurso" required>
                                                 <?php
                                                 $clasificaciones = [
                                                   'Material Normativo',
@@ -678,7 +676,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
 
                                             <div class="col-md-12">
                                               <label for="editar_tipo" class="form-label">Tipo</label>
-                                              <select class="form-select" id="editar_tipo" name="tipo" required
+                                              <select class="form-select" id="editar_tipo" name="tipo_recurso" required
                                                 data-id="<?php echo $recurso['id_recurso'] ?>">
                                                 <?php
                                                 $tipos = ['URL', 'Archivo', 'Video'];
@@ -707,7 +705,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                     </button>
                                                     <input type="file"
                                                       id="nuevo_archivo_<?php echo $recurso['id_recurso'] ?>"
-                                                      name="archivo"
+                                                      name="contenido_recurso"
                                                       class="d-none">
                                                   </div>
                                                   <small class="text-muted"><?php echo $recurso['contenido_recurso'] ?></small>
@@ -717,7 +715,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                   <label class="form-label"><?php echo $recurso['tipo_recurso'] == 'URL' ? 'Enlace' : 'URL del Video' ?></label>
                                                   <input type="url"
                                                     class="form-control"
-                                                    name="contenido"
+                                                    name="contenido_recurso"
                                                     value="<?php echo $recurso['contenido_recurso'] ?>"
                                                     required>
                                                 </div>
