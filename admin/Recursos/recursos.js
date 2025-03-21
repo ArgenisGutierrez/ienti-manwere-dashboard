@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Función principal de actualización
-window.actualizarCampoEdicion = function(idRecurso) {
+  window.actualizarCampoEdicion = function(idRecurso) {
     const tipo = document.querySelector(`#editar_tipo[data-id="${idRecurso}"]`).value;
     const tipoOriginal = document.querySelector(`#tipo_original_${idRecurso}`).value;
     const contenidoOriginal = document.querySelector(`#contenido_original_${idRecurso}`).value;
@@ -176,10 +176,10 @@ window.actualizarCampoEdicion = function(idRecurso) {
     let html = '';
 
     if (tipo === 'Archivo') {
-        // Extraer nombre del archivo de manera segura
-        const filename = contenidoOriginal.split('/').pop(); // Cambio clave aquí
-        
-        html = `
+      // Extraer nombre del archivo de manera segura
+      const filename = contenidoOriginal.split('/').pop(); // Cambio clave aquí
+
+      html = `
         <div class="mb-3">
             <label class="form-label">${tipo === tipoOriginal ? 'Archivo actual:' : 'Nuevo archivo:'}</label>
             <div class="input-group">
@@ -211,18 +211,18 @@ window.actualizarCampoEdicion = function(idRecurso) {
             ` : ''}
         </div>`;
     } else {
-        html = `
+      html = `
         <div class="mb-3">
             <label class="form-label">${tipo === 'URL' ? 'Enlace' : 'URL del Video'}</label>
             <input type="URL" 
                    class="form-control" 
-                   name="contenido" 
+                   name="contenido_recurso" 
                    value="${tipo === tipoOriginal ? contenidoOriginal : ''}" 
                    required>
         </div>`;
     }
 
     campoContenido.innerHTML = html;
-}
+  }
 
 });

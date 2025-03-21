@@ -491,6 +491,11 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                 </div>
                                               <?php endif; ?>
                                             </div>
+                                            <div class="modal-footer">
+                                              <button type="submit" class="btn btn-primary">
+                                                Guardar
+                                              </button>
+                                            </div>
                                           </form>
                                         </div>
                                       </div>
@@ -718,8 +723,11 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                                 </div>
                                               <?php endif; ?>
                                             </div>
-
-                                            <!-- Resto del formulario... -->
+                                            <div class="modal-footer">
+                                              <button type="submit" class="btn btn-primary">
+                                                Guardar
+                                              </button>
+                                            </div>
                                           </form>
                                         </div>
                                       </div>
