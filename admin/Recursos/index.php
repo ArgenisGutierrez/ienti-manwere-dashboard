@@ -144,7 +144,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     break;
                                 case 'Archivo':
                                     ?>
-                                      <a href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-cloud-arrow-down-fill"></i>
                                       </a>
                                     <?php
@@ -374,7 +374,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     break;
                                 case 'Archivo':
                                     ?>
-                                      <a href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-cloud-arrow-down-fill"></i>
                                       </a>
                                     <?php
@@ -605,7 +605,7 @@ require_once '../../app/controllers/recursos/listado_recursos.php';
                                     break;
                                 case 'Archivo':
                                     ?>
-                                      <a href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
+                                      <a target="_blank" href="<?php echo APP_URL."public/recursos/".$recurso['contenido_recurso'];?>" type="button" class="btn btn-info editar-btn">
                                         <i class="bi bi-cloud-arrow-down-fill"></i>
                                       </a>
                                     <?php
